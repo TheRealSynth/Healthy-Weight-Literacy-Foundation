@@ -44,6 +44,38 @@ const successStories = [
   },
 ]
 
+const timelineItems = [
+  {
+    year: "January 2024",
+    title: "Telehealth Program Launch",
+    description:
+      "Successfully launched our virtual wellness coaching program, making our services accessible to underserved communities nationwide.",
+  },
+  {
+    year: "March 2024",
+    title: "Partnership Expansion",
+    description:
+      "Partnered with 15 new school districts to bring our nutrition education curriculum to over 10,000 students.",
+  },
+  {
+    year: "June 2024",
+    title: "Community Impact Milestone",
+    description: "Reached 50,000 families served since our founding, with an 87% program completion rate.",
+  },
+  {
+    year: "September 2024",
+    title: "Research Publication",
+    description:
+      "Published groundbreaking research on sustainable behavior change in peer-reviewed journal, validating our approach.",
+  },
+  {
+    year: "December 2024",
+    title: "Year-End Achievements",
+    description:
+      "Expanded to 200+ communities, secured major funding for 2025 initiatives, and received national recognition for program excellence.",
+  },
+]
+
 export default function ImpactPage() {
   return (
     <>
@@ -82,7 +114,7 @@ export default function ImpactPage() {
             </p>
           </div>
 
-          <Timeline />
+          <Timeline items={timelineItems} />
         </Container>
       </Section>
 

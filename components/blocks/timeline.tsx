@@ -9,10 +9,14 @@ interface TimelineItem {
 }
 
 interface TimelineProps {
-  items: TimelineItem[]
+  items?: TimelineItem[]
 }
 
-export function Timeline({ items }: TimelineProps) {
+export function Timeline({ items = [] }: TimelineProps) {
+  if (!items || items.length === 0) {
+    return null
+  }
+
   return (
     <div className="relative">
       {/* Vertical line */}
