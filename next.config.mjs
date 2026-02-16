@@ -12,7 +12,6 @@ const nextConfig = {
         pathname: "/photo-**",
       },
     ],
-    domains: ["images.unsplash.com"],
   },
   async redirects() {
     return [
