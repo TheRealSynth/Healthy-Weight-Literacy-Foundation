@@ -5,8 +5,8 @@ Remove 'Continue Learning' sections from blog article SQL files.
 import re
 from pathlib import Path
 
-# Find all SQL files with articles
-script_dir = Path(__file__).parent
+# Use absolute paths
+script_dir = Path('/vercel/share/v0-project/scripts')
 sql_files = [
     script_dir / '009_seed_glp1_education_articles.sql',
     script_dir / '010_seed_telehealth_education_articles.sql',

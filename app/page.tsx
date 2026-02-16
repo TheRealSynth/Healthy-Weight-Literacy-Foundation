@@ -109,7 +109,14 @@ export default async function HomePage() {
               <Link key={item.title} href={item.href}>
                 <Card className="hover:shadow-card-hover transition-shadow h-full overflow-hidden">
                   <div className="relative h-48 w-full">
-                    <Image src={item.image || "/placeholder.svg"} alt={item.imageAlt} fill className="object-cover" />
+                    <Image 
+                      src={item.image || "/placeholder.svg"} 
+                      alt={item.imageAlt} 
+                      fill 
+                      className="object-cover"
+                      loading="eager"
+                      priority
+                    />
                   </div>
                   <CardContent className="pt-6">
                     <div className="h-12 w-12 rounded-lg bg-primary-soft flex items-center justify-center mb-4">
