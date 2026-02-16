@@ -2,24 +2,38 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Menu } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
+import { Menu, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { Heart } from "lucide-react"
+import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
+import { ROUTES } from "@/lib/routes"
+
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Programs", href: "/programs" },
-  { name: "Education", href: "/education" },
-  { name: "City Resources", href: "/city-resources" },
-  { name: "Contact", href: "/contact" },
+  { name: "Home", href: ROUTES.HOME },
+  { name: "About", href: ROUTES.ABOUT },
+  { name: "Programs", href: ROUTES.PROGRAMS },
+  { name: "Education", href: ROUTES.EDUCATION },
+  { name: "City Resources", href: ROUTES.CITY_RESOURCES },
+  { name: "Contact", href: ROUTES.CONTACT },
 ]
 
 export function Header() {
   const pathname = usePathname()
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`${ROUTES.SEARCH}?q=${encodeURIComponent(searchQuery.trim())}`)
+      setIsOpen(false)
+      setSearchQuery("")
+    }
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/60">
@@ -62,7 +76,7 @@ export function Header() {
 
         {/* Desktop Actions */}
         <div className="hidden lg:flex lg:items-center lg:gap-x-4">
-          <Link href="/donate">
+          <Link href={ROUTES.DONATE}>
             <Button className="font-semibold">
               <Heart className="mr-2 h-4 w-4" />
               Donate
@@ -81,12 +95,24 @@ export function Header() {
             <SheetContent side="right" className="w-auto">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-6 pt-6 px-6">
-                <Link href="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
+                <Link href={ROUTES.HOME} className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
                   <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary">
                     <Heart className="h-5 w-5 text-primary-foreground" aria-hidden="true" />
                   </div>
                   <span className="text-lg font-bold text-secondary">Healthy Weight Literacy Foundation</span>
                 </Link>
+
+                {/* Search Bar */}
+                <form onSubmit={handleSearch} className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    type="search"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-9"
+                  />
+                </form>
 
                 <nav className="flex flex-col gap-4" aria-label="Mobile navigation">
                   {navigation.map((item) => (
@@ -104,7 +130,7 @@ export function Header() {
                   ))}
                 </nav>
 
-                <Link href="/donate" onClick={() => setIsOpen(false)}>
+                <Link href={ROUTES.DONATE} onClick={() => setIsOpen(false)}>
                   <Button className="font-semibold w-fit">
                     <Heart className="mr-2 h-4 w-4" />
                     Donate

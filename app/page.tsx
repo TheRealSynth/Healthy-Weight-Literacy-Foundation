@@ -6,6 +6,7 @@ import { Section } from "@/components/layout/section"
 import { Container } from "@/components/layout/container"
 import { BookOpen, Users, GraduationCap, ArrowRight } from "lucide-react"
 import { getBlogPosts } from "@/lib/supabase-blog"
+import { ROUTES, dynamicRoutes } from "@/lib/routes"
 
 export default async function HomePage() {
   const allPosts = await getBlogPosts()
@@ -35,13 +36,13 @@ export default async function HomePage() {
               communities can make informed, sustainable lifestyle decisions.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/education">
+              <Link href={ROUTES.EDUCATION}>
                 <Button size="lg" variant="secondary" className="font-semibold">
                   Explore Education
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Link href="/contact">
+              <Link href={ROUTES.CONTACT}>
                 <Button
                   size="lg"
                   className="bg-accent text-accent-foreground hover:bg-accent-hover font-semibold"
@@ -84,7 +85,7 @@ export default async function HomePage() {
                 icon: BookOpen,
                 title: "Health Literacy Education",
                 description: "Evidence-based education on nutrition, weight management, and metabolic health.",
-                href: "/programs",
+                href: ROUTES.PROGRAMS,
                 image: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=800&h=500&fit=crop",
                 imageAlt: "Health education workshop with diverse participants",
               },
@@ -92,7 +93,7 @@ export default async function HomePage() {
                 icon: GraduationCap,
                 title: "Public Resources & Guides",
                 description: "Free, accessible educational materials designed for everyday understanding.",
-                href: "/programs",
+                href: ROUTES.PROGRAMS,
                 image: "https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?w=800&h=500&fit=crop",
                 imageAlt: "Educational resources and materials for health literacy",
               },
@@ -100,7 +101,7 @@ export default async function HomePage() {
                 icon: Users,
                 title: "Community Awareness",
                 description: "Educational outreach focused on underserved and low-access communities.",
-                href: "/programs",
+                href: ROUTES.PROGRAMS,
                 image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=500&fit=crop",
                 imageAlt: "Community health outreach program in action",
               },
@@ -108,7 +109,14 @@ export default async function HomePage() {
               <Link key={item.title} href={item.href}>
                 <Card className="hover:shadow-card-hover transition-shadow h-full overflow-hidden">
                   <div className="relative h-48 w-full">
-                    <Image src={item.image || "/placeholder.svg"} alt={item.imageAlt} fill className="object-cover" />
+                    <Image 
+                      src={item.image || "/placeholder.svg"} 
+                      alt={item.imageAlt} 
+                      fill 
+                      className="object-cover"
+                      loading="eager"
+                      priority
+                    />
                   </div>
                   <CardContent className="pt-6">
                     <div className="h-12 w-12 rounded-lg bg-primary-soft flex items-center justify-center mb-4">
@@ -181,7 +189,7 @@ export default async function HomePage() {
           </div>
           <div className="grid gap-6 md:grid-cols-3">
             {recentPosts.map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`}>
+              <Link key={post.slug} href={dynamicRoutes.blogPost(post.slug)}>
                 <Card className="hover:shadow-card-hover transition-shadow h-full overflow-hidden">
                   {post.hero_image && (
                     <div className="relative h-48 w-full">
@@ -207,7 +215,7 @@ export default async function HomePage() {
             ))}
           </div>
           <div className="text-center mt-8">
-            <Link href="/education">
+            <Link href={ROUTES.EDUCATION}>
               <Button variant="outline">
                 View All Articles
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -227,7 +235,7 @@ export default async function HomePage() {
               that need them most.
             </p>
             <div className="mt-8">
-              <Link href="/donate">
+              <Link href={ROUTES.DONATE}>
                 <Button size="lg" variant="secondary" className="font-semibold">
                   Learn About Supporting Our Mission
                 </Button>
