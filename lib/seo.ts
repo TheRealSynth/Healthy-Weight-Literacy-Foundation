@@ -10,10 +10,10 @@ export const siteConfig = {
   email: "info@weightliteracy.org",
   phone: "",
   address: {
-    street: "",
+    street: "736 Miami Chapel Rd",
     city: "Dayton",
-    state: "Ohio",
-    zip: "",
+    state: "OH",
+    zip: "45417-4651",
     country: "United States",
   },
   ein: "41-2983678",

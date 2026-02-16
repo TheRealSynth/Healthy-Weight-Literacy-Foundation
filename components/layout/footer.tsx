@@ -107,9 +107,12 @@ export function Footer() {
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 text-sm text-secondary-foreground/70">
               <p className="font-semibold text-secondary-foreground">{siteConfig.name}</p>
+              <p>{siteConfig.address.street}</p>
               <p>
-                EIN: {siteConfig.ein} | {siteConfig.address.city}, {siteConfig.address.state}
+                {siteConfig.address.city}, {siteConfig.address.state} {siteConfig.address.zip}
               </p>
+              <p>{siteConfig.address.country}</p>
+              <p>EIN: {siteConfig.ein}</p>
               <p>Email: {siteConfig.email}</p>
             </div>
             <p className="text-xs text-secondary-foreground/60 leading-relaxed max-w-3xl">
