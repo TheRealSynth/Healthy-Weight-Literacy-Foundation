@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react"
 import { volunteerFormSchema, type VolunteerFormData } from "@/lib/validators"
+import { trackVolunteerFormSubmit } from "@/lib/analytics-events"
 
 const volunteerRoles = [
   "Event Support",
@@ -57,6 +58,7 @@ export function VolunteerForm() {
       if (result.ok) {
         setStatus("success")
         setMessage("Thank you for your interest in volunteering! We'll be in touch soon.")
+        trackVolunteerFormSubmit()
         reset()
       } else {
         throw new Error(result.message)
@@ -186,6 +188,8 @@ export function VolunteerForm() {
           "Submit Application"
         )}
       </Button>
+
+
     </form>
   )
 }

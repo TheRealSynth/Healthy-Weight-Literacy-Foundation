@@ -4,25 +4,25 @@ export const siteConfig = {
   name: "Healthy Weight Literacy Foundation",
   shortName: "HWLF",
   description:
-    "Empowering communities through evidence-based healthy weight education, accessible programs, and compassionate care.",
-  url: "https://healthyweightliteracy.org",
-  ogImage: "/og-image.png",
-  email: "info@healthyweightliteracy.org",
-  phone: "(555) 123-4567",
+    "Healthy Weight Literacy Foundation exists to improve public health by providing clear, evidence-based education on nutrition, weight management, and metabolic health so individuals and communities can make informed, sustainable lifestyle decisions.",
+  url: "https://weightliteracy.org",
+  ogImage: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&h=630&fit=crop",
+  email: "info@weightliteracy.org",
+  phone: "",
   address: {
-    street: "123 Wellness Way",
-    city: "Health City",
-    state: "CA",
-    zip: "90210",
+    street: "",
+    city: "Dayton",
+    state: "Ohio",
+    zip: "",
     country: "United States",
   },
-  ein: "XX-XXXXXXX",
+  ein: "41-2983678",
   social: {
     twitter: "https://twitter.com/hwlfoundation",
-    facebook: "https://facebook.com/hwlfoundation",
-    instagram: "https://instagram.com/hwlfoundation",
-    linkedin: "https://linkedin.com/company/hwlfoundation",
-    youtube: "https://youtube.com/@hwlfoundation",
+    facebook: "https://www.facebook.com/weightliteracy",
+    instagram: "https://www.instagram.com/weight.literacy",
+    linkedin: "https://www.linkedin.com/company/weightliteracy",
+    youtube: "",
   },
 }
 
@@ -80,7 +80,7 @@ export const organizationJsonLd = {
   name: siteConfig.name,
   alternateName: siteConfig.shortName,
   url: siteConfig.url,
-  logo: `${siteConfig.url}/logo.png`,
+  logo: `${siteConfig.url}/icon.svg`,
   description: siteConfig.description,
   email: siteConfig.email,
   telephone: siteConfig.phone,
@@ -92,7 +92,7 @@ export const organizationJsonLd = {
     postalCode: siteConfig.address.zip,
     addressCountry: siteConfig.address.country,
   },
-  sameAs: Object.values(siteConfig.social),
+  sameAs: Object.values(siteConfig.social).filter(Boolean),
   nonprofitStatus: "Nonprofit501c3",
 }
 
@@ -130,7 +130,7 @@ export function generateArticleJsonLd({
       name: siteConfig.name,
       logo: {
         "@type": "ImageObject",
-        url: `${siteConfig.url}/logo.png`,
+        url: `${siteConfig.url}/icon.svg`,
       },
     },
     mainEntityOfPage: {

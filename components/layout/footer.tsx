@@ -1,45 +1,27 @@
 import Link from "next/link"
-import { Heart, Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react"
+import { BookOpen, Facebook, Twitter, Linkedin, Instagram } from "lucide-react"
 import { siteConfig } from "@/lib/seo"
 import { NewsletterForm } from "@/components/forms/newsletter-form"
 
 const footerNavigation = {
   about: [
-    { name: "Our Story", href: "/about" },
-    { name: "Impact", href: "/impact" },
-    { name: "Financials", href: "/financials" },
-    { name: "Press", href: "/press" },
-    { name: "Careers", href: "/careers" },
-  ],
-  programs: [
-    { name: "All Programs", href: "/programs" },
-    { name: "Resources", href: "/resources" },
-    { name: "Blog", href: "/blog" },
-    { name: "Events", href: "/events" },
-    { name: "Telehealth", href: "/telehealth-intake" },
-  ],
-  getInvolved: [
-    { name: "Donate", href: "/donate" },
-    { name: "Volunteer", href: "/volunteer" },
-    { name: "Partner", href: "/partner" },
-    { name: "Contact", href: "/contact" },
+    { name: "About", href: "/about" },
+    { name: "Programs", href: "/programs" },
+    { name: "Education", href: "/education" },
+    { name: "City Resources", href: "/city-resources" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
-    { name: "Accessibility", href: "/accessibility" },
+    { name: "Cookie Policy", href: "/cookies" },
+    { name: "Accessibility Statement", href: "/accessibility" },
+    { name: "Terms of Use", href: "/terms" },
+    { name: "Contact", href: "/contact" },
   ],
 }
 
-const socialLinks = [
-  { name: "Facebook", href: siteConfig.social.facebook, icon: Facebook },
-  { name: "Twitter", href: siteConfig.social.twitter, icon: Twitter },
-  { name: "Instagram", href: siteConfig.social.instagram, icon: Instagram },
-  { name: "LinkedIn", href: siteConfig.social.linkedin, icon: Linkedin },
-  { name: "YouTube", href: siteConfig.social.youtube, icon: Youtube },
-]
-
 export function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <footer className="bg-secondary text-secondary-foreground" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
@@ -49,31 +31,35 @@ export function Footer() {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           {/* Brand and Newsletter */}
           <div className="space-y-8 xl:col-span-1">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
-                <Heart className="h-5 w-5 text-primary-foreground" aria-hidden="true" />
+            <Link
+              href="/"
+              className="flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary">
+                <BookOpen className="h-6 w-6 text-primary-foreground" aria-hidden="true" />
               </div>
               <span className="text-lg font-bold">HWLF</span>
             </Link>
-            <p className="text-sm text-secondary-foreground/80 max-w-xs">
-              Empowering communities through evidence-based healthy weight education, accessible programs, and
-              compassionate care.
-            </p>
-            <div className="flex gap-4">
-              {socialLinks.map((item) => (
+            <p className="text-sm text-secondary-foreground/80 max-w-xs leading-relaxed">{siteConfig.description}</p>
+            <div className="flex items-center gap-3 pt-2">
+              {[
+                { icon: Facebook, href: "https://www.facebook.com/weightliteracy", label: "Facebook" },
+                { icon: Twitter, href: "https://twitter.com/hwlfoundation", label: "X (Twitter)" },
+                { icon: Linkedin, href: "https://www.linkedin.com/company/weightliteracy", label: "LinkedIn" },
+                { icon: Instagram, href: "https://www.instagram.com/weight.literacy", label: "Instagram" },
+              ].map((social) => (
                 <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-secondary-foreground/60 hover:text-secondary-foreground transition-colors"
+                  key={social.label}
+                  href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Follow us on ${item.name}`}
+                  className="text-secondary-foreground/60 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+                  aria-label={`Follow us on ${social.label}`}
                 >
-                  <item.icon className="h-5 w-5" aria-hidden="true" />
+                  <social.icon className="h-5 w-5" />
                 </a>
               ))}
             </div>
-
             <div className="pt-4">
               <h3 className="text-sm font-semibold mb-3">Stay Updated</h3>
               <NewsletterForm variant="footer" />
@@ -81,45 +67,15 @@ export function Footer() {
           </div>
 
           {/* Navigation Links */}
-          <div className="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0 md:grid-cols-4">
+          <div className="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div>
-              <h3 className="text-sm font-semibold">About</h3>
+              <h3 className="text-sm font-semibold">Navigation</h3>
               <ul className="mt-4 space-y-3" role="list">
                 {footerNavigation.about.map((item) => (
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      className="text-sm text-secondary-foreground/70 hover:text-secondary-foreground transition-colors"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold">Programs</h3>
-              <ul className="mt-4 space-y-3" role="list">
-                {footerNavigation.programs.map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className="text-sm text-secondary-foreground/70 hover:text-secondary-foreground transition-colors"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold">Get Involved</h3>
-              <ul className="mt-4 space-y-3" role="list">
-                {footerNavigation.getInvolved.map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className="text-sm text-secondary-foreground/70 hover:text-secondary-foreground transition-colors"
+                      className="text-sm text-secondary-foreground/70 hover:text-secondary-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
                     >
                       {item.name}
                     </Link>
@@ -134,7 +90,7 @@ export function Footer() {
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      className="text-sm text-secondary-foreground/70 hover:text-secondary-foreground transition-colors"
+                      className="text-sm text-secondary-foreground/70 hover:text-secondary-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
                     >
                       {item.name}
                     </Link>
@@ -147,13 +103,24 @@ export function Footer() {
 
         {/* Bottom Section */}
         <div className="mt-12 border-t border-secondary-foreground/10 pt-8">
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-sm text-secondary-foreground/60">
-              &copy; {new Date().getFullYear()} Healthy Weight Literacy Foundation. All rights reserved.
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2 text-sm text-secondary-foreground/70">
+              <p className="font-semibold text-secondary-foreground">{siteConfig.name}</p>
+              <p>
+                EIN: {siteConfig.ein} | {siteConfig.address.city}, {siteConfig.address.state}
+              </p>
+              <p>Email: {siteConfig.email}</p>
+            </div>
+            <p className="text-xs text-secondary-foreground/60 leading-relaxed max-w-3xl">
+              <strong>Educational Disclaimer:</strong> The information provided by Healthy Weight Literacy Foundation is
+              for educational purposes only and is not intended as medical advice. Consult with qualified healthcare
+              professionals before making health-related decisions.
             </p>
-            <p className="text-sm text-secondary-foreground/60">
-              501(c)(3) Nonprofit Organization | EIN: {siteConfig.ein}
+            <p className="text-xs text-secondary-foreground/60">
+              &copy; {currentYear} Healthy Weight Literacy Foundation. All rights reserved. 501(c)(3) Nonprofit
+              Organization.
             </p>
+
           </div>
         </div>
       </div>

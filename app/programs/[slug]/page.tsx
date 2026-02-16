@@ -12,6 +12,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { CTASection } from "@/components/blocks/cta-section"
 import { getProgram, getPrograms } from "@/lib/mdx"
 import { generatePageMetadata } from "@/lib/seo"
+import { renderMarkdownContent } from "@/lib/render-markdown"
 import { Clock, Users, MapPin, ArrowRight } from "lucide-react"
 
 interface ProgramPageProps {
@@ -105,40 +106,8 @@ export default async function ProgramPage({ params }: ProgramPageProps) {
               </div>
 
               {/* Content */}
-              <article className="prose">
-                {program.content.split("\n").map((paragraph, index) => {
-                  if (paragraph.startsWith("# ")) {
-                    return (
-                      <h1 key={index} id={paragraph.slice(2).toLowerCase().replace(/\s+/g, "-")}>
-                        {paragraph.slice(2)}
-                      </h1>
-                    )
-                  }
-                  if (paragraph.startsWith("## ")) {
-                    return (
-                      <h2 key={index} id={paragraph.slice(3).toLowerCase().replace(/\s+/g, "-")}>
-                        {paragraph.slice(3)}
-                      </h2>
-                    )
-                  }
-                  if (paragraph.startsWith("### ")) {
-                    return (
-                      <h3 key={index} id={paragraph.slice(4).toLowerCase().replace(/\s+/g, "-")}>
-                        {paragraph.slice(4)}
-                      </h3>
-                    )
-                  }
-                  if (paragraph.startsWith("- ")) {
-                    return <li key={index}>{paragraph.slice(2)}</li>
-                  }
-                  if (paragraph.startsWith("> ")) {
-                    return <blockquote key={index}>{paragraph.slice(2)}</blockquote>
-                  }
-                  if (paragraph.trim()) {
-                    return <p key={index}>{paragraph}</p>
-                  }
-                  return null
-                })}
+              <article className="prose prose-lg max-w-none">
+                {renderMarkdownContent(program.content)}
               </article>
 
               {/* CTA */}

@@ -4,33 +4,42 @@ import { Section } from "@/components/layout/section"
 import { Container } from "@/components/layout/container"
 import { BlogCard } from "@/components/blocks/blog-card"
 import { generatePageMetadata } from "@/lib/seo"
-import { getBlogPosts } from "@/lib/mdx"
+import { getBlogPosts } from "@/lib/supabase-blog"
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Blog",
+  title: "Educational Articles",
   description:
-    "Expert insights, practical tips, and inspiring stories to support your wellness journey. Stay informed with the latest in health education.",
+    "Evidence-based educational articles on nutrition, weight health, metabolic wellness, and health literacy from Healthy Weight Literacy Foundation.",
   path: "/blog",
 })
 
-export default function BlogPage() {
-  const posts = getBlogPosts()
+export default async function BlogPage() {
+  const posts = await getBlogPosts()
 
   return (
     <>
       <PageHeader
-        title="Blog"
-        description="Expert insights, practical tips, and inspiring stories to support your wellness journey."
-        breadcrumbs={[{ label: "Blog" }]}
+        title="Educational Articles"
+        description="Evidence-based insights to support informed health decisions and health literacy."
+        breadcrumbs={[{ label: "Articles" }]}
       />
 
       <Section>
         <Container>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <BlogCard key={post.slug} post={post} />
-            ))}
-          </div>
+          {posts.length > 0 ? (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {posts.map((post) => (
+                <BlogCard key={post.slug} post={post} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-lg text-muted-foreground">
+                Educational articles will begin publishing soon. Check back for evidence-based content on nutrition,
+                weight health, and metabolic wellness.
+              </p>
+            </div>
+          )}
         </Container>
       </Section>
     </>

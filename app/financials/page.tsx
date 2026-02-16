@@ -5,7 +5,7 @@ import { Container } from "@/components/layout/container"
 import { PageHeader } from "@/components/layout/page-header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { generatePageMetadata } from "@/lib/seo"
+import { generatePageMetadata, siteConfig } from "@/lib/seo"
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Financial Information",
@@ -175,7 +175,7 @@ export default function FinancialsPage() {
             independent audits and are committed to the highest standards of financial integrity.
           </p>
           <p className="text-sm text-muted-foreground">
-            EIN: XX-XXXXXXX (placeholder) | Registered in the State of Illinois
+            EIN: {siteConfig.ein} | {siteConfig.address.city}, {siteConfig.address.state}
           </p>
         </Container>
       </Section>

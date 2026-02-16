@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { TrendingUp, Users, Heart, Award } from "lucide-react"
+import { BookOpen, Users, Heart, Award, CheckCircle, FileText } from "lucide-react"
 import { Section } from "@/components/layout/section"
 import { Container } from "@/components/layout/container"
 import { PageHeader } from "@/components/layout/page-header"
@@ -9,70 +9,86 @@ import { generatePageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Our Impact",
-  description: "See how the Healthy Weight Literacy Foundation is making a difference in communities nationwide.",
+  description: "Learn how the Healthy Weight Literacy Foundation measures impact through educational reach and community engagement.",
   path: "/impact",
 })
 
-const impactStats = [
-  { label: "Families Served", value: "50,000+", icon: Users },
-  { label: "Communities Reached", value: "200+", icon: Heart },
-  { label: "Program Completion Rate", value: "87%", icon: TrendingUp },
-  { label: "Partner Organizations", value: "75+", icon: Award },
-]
-
-const successStories = [
-  {
-    name: "The Johnson Family",
-    location: "Atlanta, GA",
-    story:
-      "After completing our Family Wellness Program, the Johnsons reduced their screen time by 50% and now enjoy cooking healthy meals together every Sunday.",
-    outcome: "Lost 45 lbs combined, improved energy levels",
+const impactCategories = [
+  { 
+    label: "Educational Content", 
+    description: "Articles and resources published", 
+    icon: BookOpen 
   },
-  {
-    name: "Lincoln Elementary School",
-    location: "Phoenix, AZ",
-    story:
-      "Our school-wide initiative helped students understand nutrition labels and make healthier choices in the cafeteria.",
-    outcome: "30% increase in vegetable consumption",
+  { 
+    label: "Community Access", 
+    description: "Open access to health literacy materials", 
+    icon: Users 
   },
-  {
-    name: "Maria Santos",
-    location: "Chicago, IL",
-    story:
-      "As a single mother working two jobs, Maria thought healthy eating was impossible. Our telehealth program showed her affordable, quick meal options.",
-    outcome: "Reversed pre-diabetes diagnosis",
+  { 
+    label: "Evidence-Based", 
+    description: "Content reviewed by health professionals", 
+    icon: CheckCircle 
+  },
+  { 
+    label: "Transparency", 
+    description: "Published financials and operations", 
+    icon: FileText 
   },
 ]
 
-const timelineItems = [
+const communityUseCases = [
+  {
+    title: "Family Education Scenario",
+    context: "Educational Use Case Example",
+    description:
+      "A family uses our free nutrition literacy resources to learn about balanced meals and reading food labels. They access articles on meal planning and participate in our community education programs.",
+    focus: "Educational resource access and family engagement",
+  },
+  {
+    title: "School Partnership Scenario",
+    context: "Institutional Use Case Example",
+    description:
+      "A school district incorporates our evidence-based health literacy curriculum into their wellness programs. Teachers use our materials to educate students about nutrition science.",
+    focus: "Educational content distribution in schools",
+  },
+  {
+    title: "Individual Learning Scenario",
+    context: "Self-Directed Use Case Example",
+    description:
+      "An individual accesses our telehealth intake forms and educational articles to learn about metabolic health and nutrition. They engage with our evidence-based content independently.",
+    focus: "Self-paced learning and health literacy education",
+  },
+]
+
+const operationalMilestones = [
   {
     year: "January 2024",
-    title: "Telehealth Program Launch",
+    title: "Website Launch",
     description:
-      "Successfully launched our virtual wellness coaching program, making our services accessible to underserved communities nationwide.",
+      "Launched comprehensive educational website with evidence-based articles on nutrition literacy, metabolic health, and weight science.",
   },
   {
     year: "March 2024",
-    title: "Partnership Expansion",
+    title: "Content Expansion",
     description:
-      "Partnered with 15 new school districts to bring our nutrition education curriculum to over 10,000 students.",
+      "Published 20+ peer-reviewed articles covering GLP-1 medications, telehealth education, nutrition science, and metabolic health topics.",
   },
   {
     year: "June 2024",
-    title: "Community Impact Milestone",
-    description: "Reached 50,000 families served since our founding, with an 87% program completion rate.",
+    title: "Educational Programs",
+    description: "Developed family wellness curriculum, school-based nutrition education programs, and corporate wellness workshops with evidence-based materials.",
   },
   {
     year: "September 2024",
-    title: "Research Publication",
+    title: "Telehealth Forms",
     description:
-      "Published groundbreaking research on sustainable behavior change in peer-reviewed journal, validating our approach.",
+      "Created intake forms and educational resources for individuals seeking telehealth weight management services from qualified providers.",
   },
   {
     year: "December 2024",
-    title: "Year-End Achievements",
+    title: "Community Resources",
     description:
-      "Expanded to 200+ communities, secured major funding for 2025 initiatives, and received national recognition for program excellence.",
+      "Established resource library with downloadable materials, FAQ sections, and educational guides accessible to the public at no cost.",
   },
 ]
 
@@ -81,22 +97,29 @@ export default function ImpactPage() {
     <>
       <PageHeader
         title="Our Impact"
-        description="Every day, we work to create lasting change in the lives of individuals, families, and communities."
+        description="We provide free, evidence-based health literacy education to support informed decision-making about nutrition and wellness."
         breadcrumbs={[{ label: "Impact" }]}
       />
 
-      {/* Impact Stats */}
+      {/* How We Measure Impact */}
       <Section>
         <Container>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-secondary mb-4">How We Measure Impact</h2>
+            <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              As an educational nonprofit, we measure impact through content quality, accessibility, and community engagement rather than quantitative metrics. Our focus is providing accurate, evidence-based health literacy resources.
+            </p>
+          </div>
+
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {impactStats.map((stat) => (
-              <Card key={stat.label} className="text-center">
+            {impactCategories.map((category) => (
+              <Card key={category.label} className="text-center">
                 <CardContent className="pt-6">
                   <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary-soft">
-                    <stat.icon className="h-7 w-7 text-primary" />
+                    <category.icon className="h-7 w-7 text-primary" />
                   </div>
-                  <div className="text-4xl font-bold text-primary">{stat.value}</div>
-                  <CardDescription className="mt-1 text-base">{stat.label}</CardDescription>
+                  <h3 className="text-lg font-semibold text-secondary mb-2">{category.label}</h3>
+                  <CardDescription className="text-base">{category.description}</CardDescription>
                 </CardContent>
               </Card>
             ))}
@@ -104,41 +127,43 @@ export default function ImpactPage() {
         </Container>
       </Section>
 
-      {/* Annual Highlights */}
+      {/* Operational Milestones */}
       <Section background="muted">
         <Container>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-secondary mb-4">2024 Highlights</h2>
+            <h2 className="text-3xl font-bold text-secondary mb-4">Operational Milestones</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Key achievements from the past year that demonstrate our commitment to community health.
+              Key milestones in our organizational development and educational content creation throughout 2024.
             </p>
           </div>
 
-          <Timeline items={timelineItems} />
+          <Timeline items={operationalMilestones} />
         </Container>
       </Section>
 
-      {/* Success Stories */}
+      {/* Community Use Cases */}
       <Section>
         <Container>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-secondary mb-4">Success Stories</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Real stories from real people whose lives have been transformed through our programs.
+            <h2 className="text-3xl font-bold text-secondary mb-4">Community Use Cases</h2>
+            <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              These are illustrative examples of how individuals and organizations might engage with our educational resources. They are not testimonials from real individuals but scenarios representing typical use patterns.
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-3">
-            {successStories.map((story) => (
-              <Card key={story.name} className="hover:shadow-lg transition-shadow">
+            {communityUseCases.map((useCase) => (
+              <Card key={useCase.title} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <CardTitle>{story.name}</CardTitle>
-                  <CardDescription>{story.location}</CardDescription>
+                  <CardTitle className="text-lg">{useCase.title}</CardTitle>
+                  <CardDescription className="text-xs uppercase tracking-wide text-primary">
+                    {useCase.context}
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground mb-4">&ldquo;{story.story}&rdquo;</p>
+                  <p className="text-muted-foreground mb-4 leading-relaxed">{useCase.description}</p>
                   <div className="pt-4 border-t">
-                    <p className="text-sm font-medium text-primary">{story.outcome}</p>
+                    <p className="text-sm font-medium text-secondary">{useCase.focus}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -147,31 +172,31 @@ export default function ImpactPage() {
         </Container>
       </Section>
 
-      {/* Data Visualization Placeholder */}
+      {/* Accuracy and Transparency */}
       <Section background="muted">
         <Container size="md">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-secondary mb-4">Program Outcomes</h2>
-            <p className="text-muted-foreground">
-              Measurable results from our evidence-based approach to healthy weight education.
-            </p>
-          </div>
-
           <Card>
-            <CardContent className="p-8">
-              <div className="grid gap-6 sm:grid-cols-3 text-center">
-                <div>
-                  <div className="text-3xl font-bold text-primary">92%</div>
-                  <p className="text-sm text-muted-foreground mt-1">Participants report improved nutrition knowledge</p>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-primary">78%</div>
-                  <p className="text-sm text-muted-foreground mt-1">Maintain healthy habits at 6-month follow-up</p>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-primary">85%</div>
-                  <p className="text-sm text-muted-foreground mt-1">Would recommend our programs to others</p>
-                </div>
+            <CardHeader className="text-center">
+              <CardTitle className="text-2xl font-bold text-secondary">Accuracy and Transparency</CardTitle>
+            </CardHeader>
+            <CardContent className="prose prose-lg max-w-none">
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                The Healthy Weight Literacy Foundation is committed to accuracy in all published content. We do not publish outcome statistics, health claims, or program completion rates unless they have been verified through formal evaluation processes.
+              </p>
+              
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                All educational content is reviewed by qualified health professionals and based on current scientific evidence. We clearly distinguish between educational information and medical advice, and we do not make claims about diagnosis, treatment, or cure of any medical condition.
+              </p>
+
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                Our impact is measured through educational reach and community engagement rather than health outcomes. When verified data becomes available through formal program evaluations, it will be published transparently with methodology and limitations clearly stated.
+              </p>
+
+              <div className="flex items-start gap-3 p-4 bg-primary-soft rounded-lg mt-6">
+                <Award className="h-6 w-6 text-primary shrink-0 mt-0.5" />
+                <p className="text-sm text-secondary">
+                  <strong>Our Commitment:</strong> We maintain the highest standards of educational integrity and transparency in all communications. Financial reports, board information, and organizational documents are available upon request.
+                </p>
               </div>
             </CardContent>
           </Card>

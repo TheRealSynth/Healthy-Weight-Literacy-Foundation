@@ -47,7 +47,7 @@ function SearchContent() {
             <SearchIcon className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search programs, resources, articles..."
+              placeholder="Search educational resources and articles..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="pl-12 py-6 text-lg"
@@ -68,7 +68,7 @@ function SearchContent() {
           {query.length < 2 ? (
             <div className="text-center py-12">
               <SearchIcon className="h-12 w-12 mx-auto text-muted-foreground/50 mb-4" />
-              <p className="text-muted-foreground">Enter at least 2 characters to search</p>
+              <p className="text-muted-foreground">Enter at least 2 characters to search educational content</p>
             </div>
           ) : results.length === 0 ? (
             <div className="text-center py-12">
@@ -79,10 +79,10 @@ function SearchContent() {
                   programs
                 </Link>{" "}
                 and{" "}
-                <Link href="/resources" className="text-primary hover:underline">
-                  resources
-                </Link>
-                .
+                <Link href="/education" className="text-primary hover:underline">
+                  education
+                </Link>{" "}
+                sections.
               </p>
             </div>
           ) : (
@@ -133,7 +133,7 @@ export default function SearchPage() {
     <>
       <PageHeader
         title="Search"
-        description="Find programs, resources, and articles to support your wellness journey."
+        description="Find educational resources, articles, and programs to support informed health decisions."
         breadcrumbs={[{ label: "Search" }]}
       />
 
@@ -145,7 +145,7 @@ export default function SearchPage() {
                 <SearchIcon className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   type="search"
-                  placeholder="Search programs, resources, articles..."
+                  placeholder="Search educational resources and articles..."
                   className="pl-12 py-6 text-lg"
                   disabled
                 />

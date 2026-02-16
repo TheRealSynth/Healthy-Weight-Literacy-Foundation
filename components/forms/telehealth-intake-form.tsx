@@ -15,6 +15,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Loader2, CheckCircle2, AlertCircle, ChevronLeft, ChevronRight } from "lucide-react"
 import { telehealthIntakeSchema, type TelehealthIntakeData } from "@/lib/validators"
 import { cn } from "@/lib/utils"
+import { trackTelehealthIntakeSubmit } from "@/lib/analytics-events"
 
 const steps = [
   { id: 1, title: "Personal Information" },
@@ -140,6 +141,7 @@ export function TelehealthIntakeForm() {
         setMessage(
           "Your intake form has been submitted successfully! Our care team will contact you within 24-48 hours to schedule your first appointment.",
         )
+        trackTelehealthIntakeSubmit()
       } else {
         throw new Error(result.message)
       }

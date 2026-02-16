@@ -7,9 +7,10 @@ import { Container } from "@/components/layout/container"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { getBlogPost, getBlogPosts, getRelatedPosts } from "@/lib/mdx"
+import { getBlogPost, getBlogPosts } from "@/lib/supabase-blog"
 import { generatePageMetadata, generateArticleJsonLd, siteConfig } from "@/lib/seo"
 import { formatDate } from "@/lib/utils"
+import { renderMarkdownContent } from "@/lib/render-markdown"
 import { Twitter, Facebook, Share2, Clock } from "lucide-react"
 import Link from "next/link"
 
@@ -18,39 +19,41 @@ interface BlogPostPageProps {
 }
 
 export async function generateStaticParams() {
-  const posts = getBlogPosts()
+  const posts = await getBlogPosts()
   return posts.map((post) => ({ slug: post.slug }))
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const resolvedParams = await params
-  const post = getBlogPost(resolvedParams.slug)
+  const post = await getBlogPost(resolvedParams.slug)
   if (!post) return {}
 
   return generatePageMetadata({
     title: post.title,
     description: post.description,
     path: `/blog/${post.slug}`,
-    image: post.heroImage,
+    image: post.hero_image,
   })
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const resolvedParams = await params
-  const post = getBlogPost(resolvedParams.slug)
+  const post = await getBlogPost(resolvedParams.slug)
 
   if (!post) {
     notFound()
   }
 
-  const relatedPosts = getRelatedPosts(post.slug, post.tags)
+  const allPosts = await getBlogPosts()
+  const relatedPosts = allPosts.filter((p) => p.slug !== post.slug && p.category === post.category).slice(0, 2)
+
   const articleJsonLd = generateArticleJsonLd({
     title: post.title,
     description: post.description,
-    publishedTime: post.publishedAt,
-    modifiedTime: post.updatedAt,
+    publishedTime: post.published_at,
+    modifiedTime: post.updated_at,
     author: post.author,
-    image: post.heroImage,
+    image: post.hero_image,
     url: `${siteConfig.url}/blog/${post.slug}`,
   })
 
@@ -62,7 +65,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="flex flex-wrap items-center gap-4 mt-4">
           <div className="flex items-center gap-3">
             <Image
-              src={post.authorImage || "/placeholder.svg?height=40&width=40&query=author+portrait"}
+              src={post.author_image || "/placeholder.svg?height=40&width=40&query=author+portrait"}
               alt={post.author}
               width={40}
               height={40}
@@ -70,12 +73,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             />
             <div>
               <p className="font-medium text-secondary">{post.author}</p>
-              <p className="text-sm text-muted-foreground">{formatDate(post.publishedAt)}</p>
+              <p className="text-sm text-muted-foreground">{formatDate(post.published_at)}</p>
             </div>
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Clock className="h-4 w-4" aria-hidden="true" />
-            {post.readingTime}
+            {post.reading_time}
           </div>
         </div>
         <div className="flex flex-wrap gap-2 mt-4">
@@ -94,57 +97,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {/* Main Content */}
             <div>
               <Image
-                src={post.heroImage || "/placeholder.svg?height=600&width=1200&query=article+hero+image"}
+                src={post.hero_image || "/placeholder.svg?height=600&width=1200&query=article+hero+image"}
                 alt={post.title}
                 width={1200}
                 height={600}
-                className="rounded-2xl shadow-card mb-8"
+                className="rounded-2xl shadow-card mb-8 w-full h-auto"
                 priority
               />
 
               {/* Article Content */}
-              <article className="prose prose-lg max-w-none">
-                {post.content.split("\n").map((paragraph, index) => {
-                  if (paragraph.startsWith("# ")) {
-                    const id = paragraph.slice(2).toLowerCase().replace(/\s+/g, "-")
-                    return (
-                      <h1 key={index} id={id}>
-                        {paragraph.slice(2)}
-                      </h1>
-                    )
-                  }
-                  if (paragraph.startsWith("## ")) {
-                    const id = paragraph.slice(3).toLowerCase().replace(/\s+/g, "-")
-                    return (
-                      <h2 key={index} id={id}>
-                        {paragraph.slice(3)}
-                      </h2>
-                    )
-                  }
-                  if (paragraph.startsWith("### ")) {
-                    const id = paragraph.slice(4).toLowerCase().replace(/\s+/g, "-")
-                    return (
-                      <h3 key={index} id={id}>
-                        {paragraph.slice(4)}
-                      </h3>
-                    )
-                  }
-                  if (paragraph.startsWith("**") && paragraph.endsWith("**")) {
-                    return (
-                      <p key={index}>
-                        <strong>{paragraph.slice(2, -2)}</strong>
-                      </p>
-                    )
-                  }
-                  if (paragraph.startsWith("- ")) {
-                    return <li key={index}>{paragraph.slice(2)}</li>
-                  }
-                  if (paragraph.trim()) {
-                    return <p key={index}>{paragraph}</p>
-                  }
-                  return null
-                })}
-              </article>
+              <article className="prose prose-lg max-w-none">{renderMarkdownContent(post.content)}</article>
 
               {/* Share Section */}
               <div className="mt-12 pt-8 border-t">
@@ -167,26 +129,27 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <div className="mt-16">
                   <h2 className="text-2xl font-bold text-secondary mb-6">Related Articles</h2>
                   <div className="grid gap-6 md:grid-cols-2">
-                    {relatedPosts.slice(0, 2).map((relatedPost) => (
-                      <Card key={relatedPost.slug} className="hover-lift">
-                        <CardContent className="p-6">
-                          <Image
-                            src={relatedPost.heroImage || "/placeholder.svg?height=200&width=400&query=blog+post"}
-                            alt={relatedPost.title}
-                            width={400}
-                            height={200}
-                            className="rounded-lg mb-4 w-full object-cover"
-                          />
-                          <Badge variant="secondary" className="mb-2">
-                            {relatedPost.category}
-                          </Badge>
-                          <h3 className="font-bold text-lg mb-2 text-secondary">{relatedPost.title}</h3>
-                          <p className="text-muted-foreground text-sm mb-4">{relatedPost.description}</p>
-                          <Button variant="link" className="p-0" asChild>
-                            <Link href={`/blog/${relatedPost.slug}`}>Read more →</Link>
-                          </Button>
-                        </CardContent>
-                      </Card>
+                    {relatedPosts.map((relatedPost) => (
+                      <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`}>
+                        <Card className="hover-lift h-full">
+                          <CardContent className="p-6">
+                            <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
+                              <Image
+                                src={relatedPost.hero_image || "/placeholder.svg?height=200&width=400&query=blog+post"}
+                                alt={relatedPost.title}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                            <Badge variant="secondary" className="mb-2">
+                              {relatedPost.category}
+                            </Badge>
+                            <h3 className="font-bold text-lg mb-2 text-secondary line-clamp-2">{relatedPost.title}</h3>
+                            <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{relatedPost.description}</p>
+                            <span className="text-primary font-medium text-sm">Read more →</span>
+                          </CardContent>
+                        </Card>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -201,7 +164,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <h3 className="font-bold text-secondary mb-4">About the Author</h3>
                   <div className="flex items-center gap-3 mb-3">
                     <Image
-                      src={post.authorImage || "/placeholder.svg?height=60&width=60&query=author+portrait"}
+                      src={post.author_image || "/placeholder.svg?height=60&width=60&query=author+portrait"}
                       alt={post.author}
                       width={60}
                       height={60}

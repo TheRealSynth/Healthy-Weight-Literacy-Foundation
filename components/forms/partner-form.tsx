@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react"
 import { partnerFormSchema, type PartnerFormData } from "@/lib/validators"
+import { trackPartnerFormSubmit } from "@/lib/analytics-events"
 
 const organizationTypes = [
   "Healthcare Provider",
@@ -58,6 +59,7 @@ export function PartnerForm() {
       if (result.ok) {
         setStatus("success")
         setMessage("Thank you for your partnership interest! Our team will reach out within 3 business days.")
+        trackPartnerFormSubmit()
         reset()
       } else {
         throw new Error(result.message)
@@ -189,6 +191,8 @@ export function PartnerForm() {
           "Submit Partnership Inquiry"
         )}
       </Button>
+
+
     </form>
   )
 }

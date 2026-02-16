@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react"
 import { contactFormSchema, type ContactFormData } from "@/lib/validators"
+import { trackContactFormSubmit } from "@/lib/analytics-events"
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
@@ -24,6 +25,16 @@ export function ContactForm() {
     resolver: zodResolver(contactFormSchema),
   })
 
+  useEffect(() => {
+    if (status === "success") {
+      const timer = setTimeout(() => {
+        setStatus("idle")
+        setMessage("")
+      }, 10000)
+      return () => clearTimeout(timer)
+    }
+  }, [status])
+
   async function onSubmit(data: ContactFormData) {
     setStatus("loading")
     try {
@@ -36,13 +47,14 @@ export function ContactForm() {
       if (result.ok) {
         setStatus("success")
         setMessage("Thank you for your message! We'll get back to you within 2 business days.")
+        trackContactFormSubmit("contact_page")
         reset()
       } else {
         throw new Error(result.message)
       }
     } catch {
       setStatus("error")
-      setMessage("Something went wrong. Please try again later.")
+      setMessage("Message delivery is being configured. Please email us directly at info@weightliteracy.org for now.")
     }
   }
 
@@ -71,9 +83,10 @@ export function ContactForm() {
             {...register("name")}
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? "name-error" : undefined}
+            aria-required="true"
           />
           {errors.name && (
-            <p id="name-error" className="text-sm text-danger">
+            <p id="name-error" className="text-sm text-danger" role="alert">
               {errors.name.message}
             </p>
           )}
@@ -89,9 +102,10 @@ export function ContactForm() {
             {...register("email")}
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "email-error" : undefined}
+            aria-required="true"
           />
           {errors.email && (
-            <p id="email-error" className="text-sm text-danger">
+            <p id="email-error" className="text-sm text-danger" role="alert">
               {errors.email.message}
             </p>
           )}
@@ -112,9 +126,10 @@ export function ContactForm() {
           {...register("subject")}
           aria-invalid={!!errors.subject}
           aria-describedby={errors.subject ? "subject-error" : undefined}
+          aria-required="true"
         />
         {errors.subject && (
-          <p id="subject-error" className="text-sm text-danger">
+          <p id="subject-error" className="text-sm text-danger" role="alert">
             {errors.subject.message}
           </p>
         )}
@@ -130,9 +145,10 @@ export function ContactForm() {
           {...register("message")}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
+          aria-required="true"
         />
         {errors.message && (
-          <p id="message-error" className="text-sm text-danger">
+          <p id="message-error" className="text-sm text-danger" role="alert">
             {errors.message.message}
           </p>
         )}
@@ -148,6 +164,8 @@ export function ContactForm() {
           "Send Message"
         )}
       </Button>
+
+
     </form>
   )
 }

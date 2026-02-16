@@ -19,7 +19,7 @@ export function Hero({
   subtitle,
   primaryCTA,
   secondaryCTA,
-  backgroundImage = "/diverse-healthy-community-wellness.jpg",
+  backgroundImage = "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1600&h=900&fit=crop",
 }: HeroProps) {
   return (
     <section className="relative min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">

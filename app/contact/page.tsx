@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
-import { Mail, Phone, MapPin, Clock } from "lucide-react"
+import { Mail, MapPin } from "lucide-react"
 import { Section } from "@/components/layout/section"
 import { Container } from "@/components/layout/container"
 import { PageHeader } from "@/components/layout/page-header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ContactForm } from "@/components/forms/contact-form"
-import { generatePageMetadata } from "@/lib/seo"
+import { generatePageMetadata, siteConfig } from "@/lib/seo"
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Contact Us",
@@ -17,26 +17,14 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    content: "info@hwlf.org",
+    content: siteConfig.email,
     description: "For general inquiries",
   },
   {
-    icon: Phone,
-    title: "Phone",
-    content: "(555) 123-4567",
-    description: "Mon-Fri, 9am-5pm EST",
-  },
-  {
     icon: MapPin,
-    title: "Address",
-    content: "123 Wellness Way, Suite 100",
-    description: "Chicago, IL 60601",
-  },
-  {
-    icon: Clock,
-    title: "Response Time",
-    content: "Within 48 hours",
-    description: "For all inquiries",
+    title: "Location",
+    content: `${siteConfig.address.city}, ${siteConfig.address.state}`,
+    description: "Serving our community",
   },
 ]
 
@@ -45,7 +33,7 @@ export default function ContactPage() {
     <>
       <PageHeader
         title="Contact Us"
-        description="Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible."
+        description="Have questions? We'd love to hear from you."
         breadcrumbs={[{ label: "Contact" }]}
       />
 
@@ -65,7 +53,7 @@ export default function ContactPage() {
             {/* Contact Information */}
             <div>
               <h2 className="text-2xl font-bold text-secondary mb-6">Get in Touch</h2>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-4">
                 {contactInfo.map((item) => (
                   <Card key={item.title}>
                     <CardHeader className="pb-2">
@@ -84,15 +72,11 @@ export default function ContactPage() {
                 ))}
               </div>
 
-              {/* Map Placeholder */}
-              <div className="mt-8">
-                <h3 className="text-lg font-semibold text-secondary mb-4">Our Location</h3>
-                <div className="aspect-video rounded-lg bg-muted flex items-center justify-center border">
-                  <div className="text-center text-muted-foreground">
-                    <MapPin className="h-12 w-12 mx-auto mb-2 opacity-50" />
-                    <p>Interactive map placeholder</p>
-                  </div>
-                </div>
+              <div className="mt-8 p-6 bg-muted rounded-lg">
+                <h3 className="text-lg font-semibold text-secondary mb-3">Office Hours</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  We typically respond to all inquiries within 2 business days. Thank you for your patience.
+                </p>
               </div>
             </div>
           </div>

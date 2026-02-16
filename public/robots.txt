@@ -1,0 +1,12 @@
+# Robots.txt for Healthy Weight Literacy Foundation
+# https://weightliteracy.org
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://weightliteracy.org/sitemap.xml
+
+# Disallow admin or internal pages (if any exist in the future)
+Disallow: /api/
+Disallow: /_next/
