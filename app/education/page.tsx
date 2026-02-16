@@ -8,6 +8,7 @@ import { generatePageMetadata } from "@/lib/seo"
 import { BookOpen, Heart, Activity, Brain, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { getBlogPosts } from "@/lib/supabase-blog"
+import { ROUTES, dynamicRoutes } from "@/lib/routes"
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Education",
@@ -87,7 +88,7 @@ export default async function EducationPage() {
               {categoryArticles.length > 0 ? (
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {categoryArticles.slice(0, 3).map((article) => (
-                    <Link key={article.slug} href={`/blog/${article.slug}`} className="group">
+                    <Link key={article.slug} href={dynamicRoutes.blogPost(article.slug)} className="group">
                       <Card className="hover:shadow-card-hover transition-shadow flex flex-col h-full">
                         <CardContent className="p-6 flex flex-col flex-1">
                           <div className="mb-3">
@@ -120,7 +121,7 @@ export default async function EducationPage() {
               {categoryArticles.length > 3 && (
                 <div className="text-center mt-6">
                   <Button variant="outline" asChild>
-                    <Link href="/blog">
+                    <Link href={ROUTES.BLOG}>
                       View all {categoryArticles.length} articles
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
@@ -145,7 +146,7 @@ export default async function EducationPage() {
             <>
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-12">
                 {recentArticles.map((article) => (
-                  <Link key={article.slug} href={`/blog/${article.slug}`} className="group">
+                  <Link key={article.slug} href={dynamicRoutes.blogPost(article.slug)} className="group">
                     <Card className="hover:shadow-card-hover transition-shadow flex flex-col h-full">
                       <CardContent className="p-6 flex flex-col flex-1">
                         <div className="mb-4">
@@ -170,7 +171,7 @@ export default async function EducationPage() {
               </div>
               <div className="text-center">
                 <Button size="lg" asChild>
-                  <Link href="/blog">View All Articles</Link>
+                  <Link href={ROUTES.BLOG}>View All Articles</Link>
                 </Button>
               </div>
             </>

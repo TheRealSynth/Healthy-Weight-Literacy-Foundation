@@ -2,20 +2,21 @@ import Link from "next/link"
 import { BookOpen, Facebook, Twitter, Linkedin, Instagram } from "lucide-react"
 import { siteConfig } from "@/lib/seo"
 import { NewsletterForm } from "@/components/forms/newsletter-form"
+import { ROUTES } from "@/lib/routes"
 
 const footerNavigation = {
   about: [
-    { name: "About", href: "/about" },
-    { name: "Programs", href: "/programs" },
-    { name: "Education", href: "/education" },
-    { name: "City Resources", href: "/city-resources" },
+    { name: "About", href: ROUTES.ABOUT },
+    { name: "Programs", href: ROUTES.PROGRAMS },
+    { name: "Education", href: ROUTES.EDUCATION },
+    { name: "City Resources", href: ROUTES.CITY_RESOURCES },
   ],
   legal: [
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Cookie Policy", href: "/cookies" },
-    { name: "Accessibility Statement", href: "/accessibility" },
-    { name: "Terms of Use", href: "/terms" },
-    { name: "Contact", href: "/contact" },
+    { name: "Privacy Policy", href: ROUTES.PRIVACY },
+    { name: "Cookie Policy", href: ROUTES.COOKIES },
+    { name: "Accessibility Statement", href: ROUTES.ACCESSIBILITY },
+    { name: "Terms of Use", href: ROUTES.TERMS },
+    { name: "Contact", href: ROUTES.CONTACT },
   ],
 }
 
@@ -32,7 +33,7 @@ export function Footer() {
           {/* Brand and Newsletter */}
           <div className="space-y-8 xl:col-span-1">
             <Link
-              href="/"
+              href={ROUTES.HOME}
               className="flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary">
