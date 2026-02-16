@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { getResource, getResources } from "@/lib/mdx"
 import { generatePageMetadata } from "@/lib/seo"
+import { renderMarkdownContent } from "@/lib/render-markdown"
 import { Share2, Download, Bookmark } from "lucide-react"
 
 interface ResourcePageProps {
@@ -92,44 +93,8 @@ export default async function ResourcePage({ params }: ResourcePageProps) {
               <p className="text-sm text-muted-foreground mb-8">By {resource.author}</p>
 
               {/* Content */}
-              <article className="prose">
-                {resource.content.split("\n").map((paragraph, index) => {
-                  if (paragraph.startsWith("# ")) {
-                    return (
-                      <h1 key={index} id={paragraph.slice(2).toLowerCase().replace(/\s+/g, "-")}>
-                        {paragraph.slice(2)}
-                      </h1>
-                    )
-                  }
-                  if (paragraph.startsWith("## ")) {
-                    return (
-                      <h2 key={index} id={paragraph.slice(3).toLowerCase().replace(/\s+/g, "-")}>
-                        {paragraph.slice(3)}
-                      </h2>
-                    )
-                  }
-                  if (paragraph.startsWith("### ")) {
-                    return (
-                      <h3 key={index} id={paragraph.slice(4).toLowerCase().replace(/\s+/g, "-")}>
-                        {paragraph.slice(4)}
-                      </h3>
-                    )
-                  }
-                  if (paragraph.startsWith("- ")) {
-                    return <li key={index}>{paragraph.slice(2)}</li>
-                  }
-                  if (paragraph.startsWith("|")) {
-                    return (
-                      <p key={index} className="font-mono text-sm">
-                        {paragraph}
-                      </p>
-                    )
-                  }
-                  if (paragraph.trim()) {
-                    return <p key={index}>{paragraph}</p>
-                  }
-                  return null
-                })}
+              <article className="prose prose-lg max-w-none">
+                {renderMarkdownContent(resource.content)}
               </article>
             </div>
 

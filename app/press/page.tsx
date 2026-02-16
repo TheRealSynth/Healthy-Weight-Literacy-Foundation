@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { MediaKit } from "@/components/blocks/media-kit"
-import { generatePageMetadata } from "@/lib/seo"
+import { generatePageMetadata, siteConfig } from "@/lib/seo"
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Press & Media",
@@ -115,7 +115,7 @@ export default function PressPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-center gap-3">
                 <Mail className="h-5 w-5 text-primary" />
-                <span className="font-medium">press@hwlf.org</span>
+                <span className="font-medium">{siteConfig.email}</span>
               </div>
               <p className="text-sm text-muted-foreground mt-2">
                 We typically respond to media inquiries within 24 hours.

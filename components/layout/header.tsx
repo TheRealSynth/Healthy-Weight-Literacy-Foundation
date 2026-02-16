@@ -3,31 +3,17 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, Search, Heart } from "lucide-react"
+import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
+import { Heart } from "lucide-react"
 import { cn } from "@/lib/utils"
-
 const navigation = [
+  { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  {
-    name: "Programs",
-    href: "/programs",
-  },
-  {
-    name: "Resources",
-    href: "/resources",
-  },
-  { name: "Blog", href: "/blog" },
-  {
-    name: "Get Involved",
-    href: "/volunteer",
-    children: [
-      { name: "Volunteer", href: "/volunteer" },
-      { name: "Partner", href: "/partner" },
-      { name: "Careers", href: "/careers" },
-    ],
-  },
+  { name: "Programs", href: "/programs" },
+  { name: "Education", href: "/education" },
+  { name: "City Resources", href: "/city-resources" },
   { name: "Contact", href: "/contact" },
 ]
 
@@ -38,16 +24,16 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/60">
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
+        className="mx-auto flex max-w-7xl items-center justify-between px-4 py-0 sm:px-6 lg:px-8"
         aria-label="Main navigation"
       >
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 transition-opacity hover:opacity-80"
+          className="flex items-center gap-2 transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
           aria-label="Healthy Weight Literacy Foundation - Home"
         >
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
+          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary">
             <Heart className="h-5 w-5 text-primary-foreground" aria-hidden="true" />
           </div>
           <div className="hidden sm:block">
@@ -57,14 +43,16 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex lg:items-center lg:gap-x-8">
+        <div className="hidden lg:flex lg:items-center lg:gap-x-6">
           {navigation.map((item) => (
             <Link
               key={item.name}
               href={item.href}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                pathname === item.href || pathname.startsWith(item.href + "/") ? "text-primary" : "text-secondary",
+                "text-sm font-medium transition-colors hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded px-2 py-1",
+                pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href + "/"))
+                  ? "text-primary"
+                  : "text-secondary",
               )}
             >
               {item.name}
@@ -74,73 +62,52 @@ export function Header() {
 
         {/* Desktop Actions */}
         <div className="hidden lg:flex lg:items-center lg:gap-x-4">
-          <Link href="/search" aria-label="Search">
-            <Button variant="ghost" size="icon">
-              <Search className="h-5 w-5" aria-hidden="true" />
-            </Button>
-          </Link>
           <Link href="/donate">
-            <Button className="bg-accent text-accent-foreground hover:bg-accent-hover font-semibold">Donate</Button>
+            <Button className="font-semibold">
+              <Heart className="mr-2 h-4 w-4" />
+              Donate
+            </Button>
           </Link>
         </div>
 
         {/* Mobile Navigation */}
         <div className="flex items-center gap-2 lg:hidden">
-          <Link href="/search" aria-label="Search">
-            <Button variant="ghost" size="icon">
-              <Search className="h-5 w-5" aria-hidden="true" />
-            </Button>
-          </Link>
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="Open menu" aria-expanded={isOpen}>
                 <Menu className="h-6 w-6" aria-hidden="true" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-full max-w-sm">
+            <SheetContent side="right" className="w-auto">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <div className="flex flex-col gap-6 pt-6">
+              <div className="flex flex-col gap-6 pt-6 px-6">
                 <Link href="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
-                    <Heart className="h-5 w-5 text-primary-foreground" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary">
+                    <Heart className="h-5 w-5 text-primary-foreground" aria-hidden="true" />
                   </div>
                   <span className="text-lg font-bold text-secondary">Healthy Weight Literacy Foundation</span>
                 </Link>
 
                 <nav className="flex flex-col gap-4" aria-label="Mobile navigation">
                   {navigation.map((item) => (
-                    <div key={item.name}>
-                      <Link
-                        href={item.href}
-                        className={cn(
-                          "block text-lg font-medium transition-colors hover:text-primary",
-                          pathname === item.href ? "text-primary" : "text-secondary",
-                        )}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                      {item.children && (
-                        <div className="ml-4 mt-2 flex flex-col gap-2">
-                          {item.children.map((child) => (
-                            <Link
-                              key={child.name}
-                              href={child.href}
-                              className="text-muted-foreground hover:text-primary"
-                              onClick={() => setIsOpen(false)}
-                            >
-                              {child.name}
-                            </Link>
-                          ))}
-                        </div>
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className={cn(
+                        "block text-lg font-medium transition-colors hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded px-2 py-1",
+                        pathname === item.href ? "text-primary" : "text-secondary",
                       )}
-                    </div>
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
                   ))}
                 </nav>
 
                 <Link href="/donate" onClick={() => setIsOpen(false)}>
-                  <Button className="w-full bg-accent text-accent-foreground hover:bg-accent-hover font-semibold">
-                    Donate Now
+                  <Button className="font-semibold w-fit">
+                    <Heart className="mr-2 h-4 w-4" />
+                    Donate
                   </Button>
                 </Link>
               </div>

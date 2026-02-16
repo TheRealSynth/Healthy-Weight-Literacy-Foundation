@@ -12,21 +12,21 @@ const testimonials = [
       "The Family Fit Program transformed how our family thinks about health. My kids now ask for fruits and vegetables, and we've made exercise a fun family activity.",
     author: "Maria R.",
     role: "Parent, Family Fit Program",
-    image: "/latina-mother-smiling-portrait-happy-woman.jpg",
+    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face",
   },
   {
     quote:
       "I finally understand nutrition without feeling overwhelmed. The workshops gave me practical tools I use every day to make healthier choices.",
     author: "James T.",
     role: "Nutrition Basics Graduate",
-    image: "/smiling-african-american-man-portrait-professional.jpg",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
   },
   {
     quote:
       "As a school nurse, partnering with HWLF has been incredible. They bring evidence-based programs that actually work for our diverse student body.",
     author: "Sarah K., RN",
     role: "School Partner",
-    image: "/school-nurse-professional-portrait-woman-healthcar.jpg",
+    image: "https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=200&h=200&fit=crop&crop=face",
   },
 ]
 

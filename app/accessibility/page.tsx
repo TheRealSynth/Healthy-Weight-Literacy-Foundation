@@ -4,7 +4,7 @@ import { Section } from "@/components/layout/section"
 import { Container } from "@/components/layout/container"
 import { PageHeader } from "@/components/layout/page-header"
 import { Button } from "@/components/ui/button"
-import { generatePageMetadata } from "@/lib/seo"
+import { generatePageMetadata, siteConfig } from "@/lib/seo"
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Accessibility Statement",
@@ -17,7 +17,7 @@ export default function AccessibilityPage() {
     <>
       <PageHeader
         title="Accessibility Statement"
-        description="Our commitment to making our website accessible to all users."
+        description="Last updated: December 18, 2025"
         breadcrumbs={[{ label: "Accessibility" }]}
       />
 
@@ -95,9 +95,10 @@ export default function AccessibilityPage() {
               or have suggestions for improvement, please contact us:
             </p>
             <ul>
-              <li>Email: accessibility@hwlf.org</li>
-              <li>Phone: (555) 123-4567</li>
-              <li>Mail: 123 Wellness Way, Suite 100, Chicago, IL 60601</li>
+              <li>Email: {siteConfig.email}</li>
+              <li>
+                Location: {siteConfig.address.city}, {siteConfig.address.state}
+              </li>
             </ul>
             <p>We try to respond to accessibility feedback within 2 business days.</p>
 
@@ -109,8 +110,9 @@ export default function AccessibilityPage() {
 
             <h2>Assessment and Updates</h2>
             <p>
-              This statement was last updated on January 1, 2024. We regularly assess and update our website to maintain
-              and improve accessibility. Our accessibility efforts are ongoing.
+              This statement was last updated on December 18, 2025. We regularly assess and update our website to
+              maintain and improve accessibility. Our accessibility efforts are ongoing, and we are committed to
+              continual improvement.
             </p>
           </div>
         </Container>
