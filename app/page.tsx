@@ -177,53 +177,55 @@ export default async function HomePage() {
       </Section>
 
       {/* Latest from Our Blog Section */}
-      <Section background="muted">
-        <Container>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight text-secondary sm:text-4xl">
-              Latest Educational Articles
-            </h2>
-            <p className="mt-3 text-lg text-muted-foreground">
-              Evidence-based content to support your health literacy journey
-            </p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {recentPosts.map((post) => (
-              <Link key={post.slug} href={dynamicRoutes.blogPost(post.slug)}>
-                <Card className="hover:shadow-card-hover transition-shadow h-full overflow-hidden">
-                  {post.hero_image && (
-                    <div className="relative h-48 w-full">
-                      <Image
-                        src={post.hero_image || "/placeholder.svg"}
-                        alt={post.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  )}
-                  <CardContent className="pt-6">
-                    <div className="mb-4">
-                      <span className="inline-block px-3 py-1 text-sm font-medium rounded-full bg-primary-soft text-primary">
-                        {post.category}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-secondary mb-3 leading-tight">{post.title}</h3>
-                    <p className="text-sm text-muted-foreground">{post.reading_time}</p>
-                  </CardContent>
-                </Card>
+      {recentPosts.length > 0 && (
+        <Section background="muted">
+          <Container>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tight text-secondary sm:text-4xl">
+                Latest Educational Articles
+              </h2>
+              <p className="mt-3 text-lg text-muted-foreground">
+                Evidence-based content to support your health literacy journey
+              </p>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {recentPosts.map((post) => (
+                <Link key={post.slug} href={dynamicRoutes.blogPost(post.slug)}>
+                  <Card className="hover:shadow-card-hover transition-shadow h-full overflow-hidden">
+                    {post.hero_image && (
+                      <div className="relative h-48 w-full">
+                        <Image
+                          src={post.hero_image || "/placeholder.svg"}
+                          alt={post.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+                    <CardContent className="pt-6">
+                      <div className="mb-4">
+                        <span className="inline-block px-3 py-1 text-sm font-medium rounded-full bg-primary-soft text-primary">
+                          {post.category}
+                        </span>
+                      </div>
+                      <h3 className="text-lg font-semibold text-secondary mb-3 leading-tight">{post.title}</h3>
+                      <p className="text-sm text-muted-foreground">{post.reading_time}</p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+            <div className="text-center mt-8">
+              <Link href={ROUTES.EDUCATION}>
+                <Button variant="outline">
+                  View All Articles
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
               </Link>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <Link href={ROUTES.EDUCATION}>
-              <Button variant="outline">
-                View All Articles
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-        </Container>
-      </Section>
+            </div>
+          </Container>
+        </Section>
+      )}
 
       {/* CTA Section */}
       <Section background="muted">
