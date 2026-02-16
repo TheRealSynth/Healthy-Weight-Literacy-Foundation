@@ -103,6 +103,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 height={600}
                 className="rounded-2xl shadow-card mb-8 w-full h-auto"
                 priority
+                loading="eager"
               />
 
               {/* Article Content */}
