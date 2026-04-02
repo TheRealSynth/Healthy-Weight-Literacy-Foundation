@@ -37,26 +37,6 @@ const values = [
   },
 ]
 
-const teamMembers = [
-  {
-    name: "Executive Director",
-    title: "Leadership & Strategy",
-    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&h=300&fit=crop&crop=face",
-    alt: "Executive Director at Healthy Weight Literacy Foundation",
-  },
-  {
-    name: "Program Director",
-    title: "Educational Programs",
-    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&h=300&fit=crop&crop=face",
-    alt: "Program Director at Healthy Weight Literacy Foundation",
-  },
-  {
-    name: "Community Outreach",
-    title: "Community Engagement",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&crop=face",
-    alt: "Community Outreach Coordinator at Healthy Weight Literacy Foundation",
-  },
-]
 
 export default function AboutPage() {
   return (
@@ -149,33 +129,6 @@ export default function AboutPage() {
                   </div>
                   <h3 className="text-lg font-semibold text-secondary">{value.title}</h3>
                   <p className="mt-2 text-muted-foreground leading-relaxed">{value.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      <Section background="muted">
-        <Container>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight text-secondary sm:text-4xl">Our Team</h2>
-            <p className="mt-3 text-lg text-muted-foreground">Dedicated professionals committed to health literacy</p>
-          </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {teamMembers.map((member) => (
-              <Card key={member.name} className="hover:shadow-card-hover transition-shadow">
-                <CardContent className="pt-6 text-center">
-                  <div className="relative w-32 h-32 mx-auto mb-4">
-                    <Image
-                      src={member.image || "/placeholder.svg"}
-                      alt={member.alt}
-                      fill
-                      className="rounded-full object-cover border-4 border-primary-soft"
-                    />
-                  </div>
-                  <h3 className="text-lg font-semibold text-secondary">{member.name}</h3>
-                  <p className="text-muted-foreground">{member.title}</p>
                 </CardContent>
               </Card>
             ))}
