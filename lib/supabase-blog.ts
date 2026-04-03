@@ -48,18 +48,23 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     return []
   }
 
-  const { data, error } = await client
-    .from("blog_posts")
-    .select("*")
-    .eq("is_published", true)
-    .order("published_at", { ascending: false })
+  try {
+    const { data, error } = await client
+      .from("blog_posts")
+      .select("*")
+      .eq("is_published", true)
+      .order("published_at", { ascending: false })
 
-  if (error) {
-    console.error("Error fetching blog posts:", error)
+    if (error) {
+      console.error("Error fetching blog posts:", error)
+      return []
+    }
+
+    return data || []
+  } catch (err) {
+    console.error("Error fetching blog posts:", err)
     return []
   }
-
-  return data || []
 }
 
 // Fetch a single blog post by slug
@@ -69,19 +74,24 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     return null
   }
 
-  const { data, error } = await client
-    .from("blog_posts")
-    .select("*")
-    .eq("slug", slug)
-    .eq("is_published", true)
-    .single()
+  try {
+    const { data, error } = await client
+      .from("blog_posts")
+      .select("*")
+      .eq("slug", slug)
+      .eq("is_published", true)
+      .single()
 
-  if (error) {
-    console.error("Error fetching blog post:", error)
+    if (error) {
+      console.error("Error fetching blog post:", error)
+      return null
+    }
+
+    return data
+  } catch (err) {
+    console.error("Error fetching blog post:", err)
     return null
   }
-
-  return data
 }
 
 // Fetch blog posts by category
@@ -91,19 +101,24 @@ export async function getBlogPostsByCategory(category: string): Promise<BlogPost
     return []
   }
 
-  const { data, error } = await client
-    .from("blog_posts")
-    .select("*")
-    .eq("category", category)
-    .eq("is_published", true)
-    .order("published_at", { ascending: false })
+  try {
+    const { data, error } = await client
+      .from("blog_posts")
+      .select("*")
+      .eq("category", category)
+      .eq("is_published", true)
+      .order("published_at", { ascending: false })
 
-  if (error) {
-    console.error("Error fetching blog posts by category:", error)
+    if (error) {
+      console.error("Error fetching blog posts by category:", error)
+      return []
+    }
+
+    return data || []
+  } catch (err) {
+    console.error("Error fetching blog posts by category:", err)
     return []
   }
-
-  return data || []
 }
 
 // Fetch blog posts by tag
@@ -113,19 +128,24 @@ export async function getBlogPostsByTag(tag: string): Promise<BlogPost[]> {
     return []
   }
 
-  const { data, error } = await client
-    .from("blog_posts")
-    .select("*")
-    .contains("tags", [tag])
-    .eq("is_published", true)
-    .order("published_at", { ascending: false })
+  try {
+    const { data, error } = await client
+      .from("blog_posts")
+      .select("*")
+      .contains("tags", [tag])
+      .eq("is_published", true)
+      .order("published_at", { ascending: false })
 
-  if (error) {
-    console.error("Error fetching blog posts by tag:", error)
+    if (error) {
+      console.error("Error fetching blog posts by tag:", error)
+      return []
+    }
+
+    return data || []
+  } catch (err) {
+    console.error("Error fetching blog posts by tag:", err)
     return []
   }
-
-  return data || []
 }
 
 // Create a new blog post (for future admin functionality)
