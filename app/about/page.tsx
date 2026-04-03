@@ -7,40 +7,43 @@ import { generatePageMetadata } from "@/lib/seo"
 import { BookOpen, Users, Target, Shield } from "lucide-react"
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "About Us",
+  title: "About Weight Literacy Foundation | Mission and Public Education",
   description:
-    "Learn about the Healthy Weight Literacy Foundation's mission to improve public health through clear, evidence-based education on nutrition, weight management, and metabolic health.",
+    "Learn about Weight Literacy Foundation, our mission, and our commitment to improving public understanding of weight health and evidence-based education.",
   path: "/about",
 })
 
-const values = [
+const whatWeDo = [
   {
-    icon: Shield,
-    title: "Evidence-Based",
-    description: "Our educational content is grounded in the latest scientific research and best practices.",
-  },
-  {
-    icon: Users,
-    title: "Community-Focused",
+    icon: BookOpen,
+    title: "Publish Educational Resources",
     description:
-      "We prioritize serving underserved and low-income communities with limited access to health education.",
+      "We develop and share clear, accurate information on weight health and obesity for general audiences.",
   },
   {
     icon: Target,
-    title: "Educational Mission",
-    description: "We focus on providing clear, accessible information that empowers informed decision-making.",
+    title: "Translate Complex Medical Topics",
+    description:
+      "We take evidence-based clinical information and make it accessible to people without a medical background.",
   },
   {
-    icon: BookOpen,
-    title: "Public Health Literacy",
-    description: "We work to improve health literacy across all communities through comprehensive resources.",
+    icon: Shield,
+    title: "Support Informed Decision-Making",
+    description:
+      "We provide people with the information they need to ask better questions and have more productive conversations with their healthcare providers.",
+  },
+  {
+    icon: Users,
+    title: "Promote Awareness of Evidence-Based Options",
+    description:
+      "We highlight the difference between evidence-based treatment approaches and misleading or unverified health claims.",
   },
 ]
-
 
 export default function AboutPage() {
   return (
     <>
+      {/* Hero */}
       <div className="relative bg-primary text-primary-foreground overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
@@ -54,15 +57,19 @@ export default function AboutPage() {
         </div>
         <Container className="relative z-10">
           <div className="py-16 text-center">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl text-white">About Us</h1>
-            <p className="mt-4 text-xl text-white/90 max-w-2xl mx-auto">
-              Improving public health through evidence-based education
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl text-white text-balance">
+              About Weight Literacy Foundation
+            </h1>
+            <p className="mt-4 text-xl text-white/90 max-w-2xl mx-auto text-balance">
+              Weight Literacy Foundation exists to improve public understanding of weight health, obesity, and
+              evidence-based treatment options. Our goal is to make complex health information easier to understand so
+              individuals and families can make more informed decisions.
             </p>
           </div>
         </Container>
       </div>
 
-      {/* Mission Section */}
+      {/* Mission */}
       <Section>
         <Container>
           <div className="max-w-3xl mx-auto">
@@ -70,35 +77,50 @@ export default function AboutPage() {
               Our Mission
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed text-balance">
-              Healthy Weight Literacy Foundation exists to improve public health by providing clear, evidence-based
-              education on nutrition, weight management, and metabolic health so individuals and communities can make
-              informed, sustainable lifestyle decisions.
+              We focus on health literacy in the area of weight health. That includes helping people better understand
+              obesity, treatment approaches, patient questions, and the difference between evidence-based information
+              and misleading claims.
             </p>
           </div>
         </Container>
       </Section>
 
-      {/* Audience Section */}
+      {/* What We Do */}
       <Section background="muted">
+        <Container>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tight text-secondary sm:text-4xl">What We Do</h2>
+            <p className="mt-3 text-lg text-muted-foreground text-balance">
+              Accessible, responsible health education for the public
+            </p>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {whatWeDo.map((item) => (
+              <Card key={item.title} className="hover:shadow-card-hover transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="h-12 w-12 rounded-lg bg-primary-soft flex items-center justify-center mb-4">
+                    <item.icon className="h-6 w-6 text-primary" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-secondary">{item.title}</h3>
+                  <p className="mt-2 text-muted-foreground leading-relaxed">{item.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* Who We Serve */}
+      <Section>
         <Container>
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
             <div>
               <h2 className="text-3xl font-bold tracking-tight text-secondary sm:text-4xl">Who We Serve</h2>
-              <div className="mt-6 space-y-4 text-muted-foreground">
-                <div>
-                  <h3 className="font-semibold text-secondary mb-2">Primary Audience</h3>
-                  <p className="leading-relaxed">
-                    General public seeking credible, evidence-based health education on nutrition and weight management.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-secondary mb-2">Secondary Audiences</h3>
-                  <ul className="space-y-2 list-disc list-inside">
-                    <li>Adults struggling with weight and metabolic health</li>
-                    <li>Underserved or low-income communities with limited access to health education</li>
-                  </ul>
-                </div>
-              </div>
+              <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+                Our work is intended for individuals seeking reliable health education, families supporting loved ones,
+                and communities with limited access to clear, trustworthy information about weight health and treatment
+                options.
+              </p>
             </div>
             <div className="relative">
               <Image
@@ -113,38 +135,48 @@ export default function AboutPage() {
         </Container>
       </Section>
 
-      {/* Values Section */}
-      <Section>
+      {/* How We Operate */}
+      <Section background="muted">
         <Container>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight text-secondary sm:text-4xl">Our Values</h2>
-            <p className="mt-3 text-lg text-muted-foreground">The principles that guide our educational mission</p>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {values.map((value) => (
-              <Card key={value.title} className="hover:shadow-card-hover transition-shadow">
-                <CardContent className="pt-6">
-                  <div className="h-12 w-12 rounded-lg bg-primary-soft flex items-center justify-center mb-4">
-                    <value.icon className="h-6 w-6 text-primary" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-secondary">{value.title}</h3>
-                  <p className="mt-2 text-muted-foreground leading-relaxed">{value.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold tracking-tight text-secondary sm:text-4xl text-center mb-6">
+              How We Operate
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed text-balance">
+              Weight Literacy Foundation is an education-first organization. We do not provide direct medical care,
+              diagnosis, or individualized treatment advice. Our content is designed for general informational purposes
+              and should be used as a starting point for more informed conversations with qualified healthcare
+              professionals.
+            </p>
           </div>
         </Container>
       </Section>
 
-      {/* Governance Section */}
+      {/* Transparency */}
+      <Section>
+        <Container>
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold tracking-tight text-secondary sm:text-4xl text-center mb-6">
+              Our Commitment to Transparency
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed text-balance">
+              We are committed to maintaining a clear separation between educational content, organizational
+              governance, and any future partnerships or funding sources. Our goal is to serve the public with
+              information that is accessible, responsible, and mission aligned.
+            </p>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Governance */}
       <Section background="muted">
         <Container size="sm">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight text-secondary sm:text-4xl mb-6">
-              Governance & Compliance
+              Governance &amp; Compliance
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Healthy Weight Literacy Foundation is governed by a nonprofit board and operated in accordance with all
+              Weight Literacy Foundation is governed by a nonprofit board and operated in accordance with all
               applicable 501(c)(3) requirements.
             </p>
           </div>
