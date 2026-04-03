@@ -38,6 +38,11 @@ export const ROUTES = {
   TERMS: "/terms",
   COOKIES: "/cookies",
   ACCESSIBILITY: "/accessibility",
+
+  // Trust & Policy
+  TRANSPARENCY: "/transparency",
+  EDITORIAL_POLICY: "/editorial-policy",
+  MEDICAL_DISCLAIMER: "/medical-disclaimer",
 } as const
 
 /**

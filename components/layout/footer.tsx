@@ -13,9 +13,12 @@ const footerNavigation = {
   ],
   legal: [
     { name: "Privacy Policy", href: ROUTES.PRIVACY },
+    { name: "Terms of Use", href: ROUTES.TERMS },
+    { name: "Medical Disclaimer", href: ROUTES.MEDICAL_DISCLAIMER },
+    { name: "Editorial Policy", href: ROUTES.EDITORIAL_POLICY },
+    { name: "Transparency", href: ROUTES.TRANSPARENCY },
     { name: "Cookie Policy", href: ROUTES.COOKIES },
     { name: "Accessibility Statement", href: ROUTES.ACCESSIBILITY },
-    { name: "Terms of Use", href: ROUTES.TERMS },
     { name: "Contact", href: ROUTES.CONTACT },
   ],
 }

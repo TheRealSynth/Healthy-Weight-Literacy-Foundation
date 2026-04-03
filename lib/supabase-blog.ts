@@ -1,26 +1,30 @@
 import { createClient } from "@supabase/supabase-js"
 
-// Support both naming schemes for backward compatibility
-const supabaseUrl =
-  process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || ""
-const supabaseKey =
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || ""
-
-// Only create client if credentials are available
-// This prevents build-time crashes when env vars are missing
-let supabase: ReturnType<typeof createClient> | null = null
-
+// Read env vars at call time (not module init) to avoid stale singleton issues
+// in environments where the Supabase project may have been paused/resumed.
 function getSupabaseClient() {
-  if (!supabaseUrl || !supabaseKey) {
-    console.warn("[Supabase] Missing credentials - SUPABASE_URL or SUPABASE_ANON_KEY not configured")
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || ""
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || ""
+
+  if (!url) {
+    console.error("[Supabase] CONFIG ERROR: NEXT_PUBLIC_SUPABASE_URL is not set")
     return null
   }
-  
-  if (!supabase) {
-    supabase = createClient(supabaseUrl, supabaseKey)
+
+  if (!key) {
+    console.error("[Supabase] CONFIG ERROR: NEXT_PUBLIC_SUPABASE_ANON_KEY is not set")
+    return null
   }
-  
-  return supabase
+
+  try {
+    new URL(url)
+  } catch {
+    console.error("[Supabase] CONFIG ERROR: NEXT_PUBLIC_SUPABASE_URL is not a valid URL:", url)
+    return null
+  }
+
+  console.log("[Supabase] Client created for host:", new URL(url).hostname)
+  return createClient(url, key)
 }
 
 export interface BlogPost {
@@ -45,43 +49,58 @@ export interface BlogPost {
 export async function getBlogPosts(): Promise<BlogPost[]> {
   const client = getSupabaseClient()
   if (!client) {
+    console.error("[Supabase] getBlogPosts: aborted — client config invalid")
     return []
   }
 
-  const { data, error } = await client
-    .from("blog_posts")
-    .select("*")
-    .eq("is_published", true)
-    .order("published_at", { ascending: false })
+  try {
+    const { data, error } = await client
+      .from("blog_posts")
+      .select("*")
+      .eq("is_published", true)
+      .order("published_at", { ascending: false })
 
-  if (error) {
-    console.error("Error fetching blog posts:", error)
+    if (error) {
+      console.error("[Supabase] getBlogPosts QUERY ERROR:", error.message, "| code:", error.code)
+      return []
+    }
+
+    console.log(`[Supabase] getBlogPosts: returned ${data?.length ?? 0} posts`)
+    return data || []
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    console.error("[Supabase] getBlogPosts NETWORK ERROR:", msg)
     return []
   }
-
-  return data || []
 }
 
 // Fetch a single blog post by slug
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   const client = getSupabaseClient()
   if (!client) {
+    console.error("[Supabase] getBlogPost: aborted — client config invalid")
     return null
   }
 
-  const { data, error } = await client
-    .from("blog_posts")
-    .select("*")
-    .eq("slug", slug)
-    .eq("is_published", true)
-    .single()
+  try {
+    const { data, error } = await client
+      .from("blog_posts")
+      .select("*")
+      .eq("slug", slug)
+      .eq("is_published", true)
+      .single()
 
-  if (error) {
-    console.error("Error fetching blog post:", error)
+    if (error) {
+      console.error("[Supabase] getBlogPost QUERY ERROR:", error.message, "| code:", error.code)
+      return null
+    }
+
+    return data
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    console.error("[Supabase] getBlogPost NETWORK ERROR:", msg)
     return null
   }
-
-  return data
 }
 
 // Fetch blog posts by category
@@ -91,19 +110,24 @@ export async function getBlogPostsByCategory(category: string): Promise<BlogPost
     return []
   }
 
-  const { data, error } = await client
-    .from("blog_posts")
-    .select("*")
-    .eq("category", category)
-    .eq("is_published", true)
-    .order("published_at", { ascending: false })
+  try {
+    const { data, error } = await client
+      .from("blog_posts")
+      .select("*")
+      .eq("category", category)
+      .eq("is_published", true)
+      .order("published_at", { ascending: false })
 
-  if (error) {
-    console.error("Error fetching blog posts by category:", error)
+    if (error) {
+      console.error("Error fetching blog posts by category:", error)
+      return []
+    }
+
+    return data || []
+  } catch (err) {
+    console.error("Error fetching blog posts by category:", err)
     return []
   }
-
-  return data || []
 }
 
 // Fetch blog posts by tag
@@ -113,19 +137,24 @@ export async function getBlogPostsByTag(tag: string): Promise<BlogPost[]> {
     return []
   }
 
-  const { data, error } = await client
-    .from("blog_posts")
-    .select("*")
-    .contains("tags", [tag])
-    .eq("is_published", true)
-    .order("published_at", { ascending: false })
+  try {
+    const { data, error } = await client
+      .from("blog_posts")
+      .select("*")
+      .contains("tags", [tag])
+      .eq("is_published", true)
+      .order("published_at", { ascending: false })
 
-  if (error) {
-    console.error("Error fetching blog posts by tag:", error)
+    if (error) {
+      console.error("Error fetching blog posts by tag:", error)
+      return []
+    }
+
+    return data || []
+  } catch (err) {
+    console.error("Error fetching blog posts by tag:", err)
     return []
   }
-
-  return data || []
 }
 
 // Create a new blog post (for future admin functionality)
