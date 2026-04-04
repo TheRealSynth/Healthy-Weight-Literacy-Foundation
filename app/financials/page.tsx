@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { FileText, Download, PieChart, TrendingUp } from "lucide-react"
+import { FileText, Download, PieChart, TrendingUp, Mail } from "lucide-react"
 import { Section } from "@/components/layout/section"
 import { Container } from "@/components/layout/container"
 import { PageHeader } from "@/components/layout/page-header"
@@ -13,13 +13,13 @@ export const metadata: Metadata = generatePageMetadata({
   path: "/financials",
 })
 
-const documents = [
-  { title: "2023 Annual Report", type: "PDF", size: "2.4 MB" },
-  { title: "2023 Form 990", type: "PDF", size: "1.8 MB" },
-  { title: "2023 Audited Financials", type: "PDF", size: "3.1 MB" },
-  { title: "2022 Annual Report", type: "PDF", size: "2.2 MB" },
-  { title: "2022 Form 990", type: "PDF", size: "1.7 MB" },
-  { title: "2022 Audited Financials", type: "PDF", size: "2.9 MB" },
+const documents: Array<{ title: string; type: string; size: string; href: string | null }> = [
+  { title: "2023 Annual Report", type: "PDF", size: "2.4 MB", href: null },
+  { title: "2023 Form 990", type: "PDF", size: "1.8 MB", href: null },
+  { title: "2023 Audited Financials", type: "PDF", size: "3.1 MB", href: null },
+  { title: "2022 Annual Report", type: "PDF", size: "2.2 MB", href: null },
+  { title: "2022 Form 990", type: "PDF", size: "1.7 MB", href: null },
+  { title: "2022 Audited Financials", type: "PDF", size: "2.9 MB", href: null },
 ]
 
 export default function FinancialsPage() {
@@ -154,14 +154,37 @@ export default function FinancialsPage() {
                         {doc.type} • {doc.size}
                       </CardDescription>
                     </div>
-                    <Button variant="ghost" size="icon" className="shrink-0">
-                      <Download className="h-4 w-4" />
-                      <span className="sr-only">Download {doc.title}</span>
-                    </Button>
+                    {doc.href ? (
+                      <a href={doc.href} download className="shrink-0">
+                        <Button variant="ghost" size="icon">
+                          <Download className="h-4 w-4" />
+                          <span className="sr-only">Download {doc.title}</span>
+                        </Button>
+                      </a>
+                    ) : (
+                      <Button variant="ghost" size="icon" disabled className="shrink-0" aria-label="Document pending upload">
+                        <Download className="h-4 w-4 opacity-40" />
+                      </Button>
+                    )}
                   </div>
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          <div className="mt-8 rounded-lg border border-amber-200 bg-amber-50 p-6 max-w-2xl mx-auto text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Mail className="h-5 w-5 text-amber-700" />
+              <p className="font-semibold text-amber-900">Documents Available on Request</p>
+            </div>
+            <p className="text-amber-800 text-sm">
+              Financial documents are currently being prepared for upload. To request copies of any filing, please
+              contact us at{" "}
+              <a href={`mailto:${siteConfig.email}`} className="underline font-medium">
+                {siteConfig.email}
+              </a>
+              . We will respond within 5 business days.
+            </p>
           </div>
         </Container>
       </Section>
