@@ -43,6 +43,8 @@ export const ROUTES = {
   TRANSPARENCY: "/transparency",
   EDITORIAL_POLICY: "/editorial-policy",
   MEDICAL_DISCLAIMER: "/medical-disclaimer",
+  MEDICAL_REVIEW: "/medical-review",
+  HOW_WE_CREATE_CONTENT: "/how-we-create-content",
 } as const
 
 /**
