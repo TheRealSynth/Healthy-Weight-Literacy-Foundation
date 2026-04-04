@@ -54,7 +54,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         description={post.description}
         slug={post.slug}
         publishedAt={post.published_at}
-        updatedAt={post.updated_at}
+        updatedAt={post.updated_at ?? undefined}
         category={post.category}
       />
 

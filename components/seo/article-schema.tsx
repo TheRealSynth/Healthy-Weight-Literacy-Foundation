@@ -1,12 +1,12 @@
 import { siteConfig } from "@/lib/seo"
 
-// Categories that require MedicalWebPage schema instead of Article
+// Categories that require MedicalWebPage schema instead of Article.
+// Values must match exactly the category strings stored in the blog_posts DB table.
 const MEDICAL_CATEGORIES = new Set([
-  "Metabolic Health",
-  "GLP-1 / Medications",
-  "Obesity Education",
-  "GLP-1",
-  "Medications",
+  "Metabolic Health",       // DB: confirmed present
+  "Medication Literacy",    // DB: confirmed present (covers GLP-1, obesity drugs)
+  "Weight Literacy",        // DB: confirmed present (obesity education equivalent)
+  "Education",              // DB: confirmed present (general obesity education)
 ])
 
 function isMedicalCategory(category: string): boolean {
