@@ -29,7 +29,7 @@ export default function EditorialPolicyPage() {
     >
       <p>
         The Healthy Weight Literacy Foundation publishes educational content about healthy weight, obesity as a chronic
-        disease, metabolic health, weight-related treatments, nutrition, and related consumer health topics.
+        disease, metabolic health, weight-related conditions, nutrition, and related consumer health topics.
       </p>
       <p>
         This page describes the standards that govern what we publish, how we make editorial decisions, and what we will
@@ -42,22 +42,22 @@ export default function EditorialPolicyPage() {
         Every article we publish is intended to help patients, caregivers, and consumers make better-informed
         decisions — not to sell products, drive clinical referrals, or advance any commercial interest. The Foundation
         does not accept advertising, does not accept sponsored content, and does not receive compensation from
-        pharmaceutical manufacturers, supplement companies, telehealth providers, or any other commercial entity in
-        exchange for editorial coverage.
+        pharmaceutical manufacturers, supplement companies, or any other commercial entity in exchange for editorial
+        coverage.
       </p>
       <p>
-        When we cover a medication, treatment, provider type, or product category, we do so because the topic is
-        relevant to our readers&apos; health decisions — not because anyone paid us to cover it.
+        When we cover a medication, provider type, or product category, we do so because the topic is relevant to our
+        readers&apos; health decisions — not because anyone paid us to cover it.
       </p>
 
       <h2 id="what-we-cover">What We Cover</h2>
       <p>We publish educational content across these topic areas:</p>
       <ul>
         <li>
-          GLP-1 medications and other obesity treatments — mechanisms, evidence, patient guidance, access, and cost
+          GLP-1 medications and other obesity medications — mechanisms, evidence, patient guidance, access, and cost
         </li>
         <li>
-          Obesity as a chronic disease — biology, stigma, and the evidence base for treatment
+          Obesity as a chronic disease — biology, stigma, and the scientific evidence base
         </li>
         <li>
           Metabolic health — including blood sugar regulation, insulin resistance, and related conditions
@@ -67,7 +67,6 @@ export default function EditorialPolicyPage() {
         <li>
           Compound pharmacy literacy and what patients should understand about non-FDA-approved formulations
         </li>
-        <li>Telehealth education — how to evaluate providers and what to look for</li>
         <li>Weight loss scams, deceptive marketing, and consumer protection</li>
         <li>Patient advocacy, weight stigma, and behavioral support</li>
         <li>Mindset and long-term weight management</li>
@@ -78,28 +77,28 @@ export default function EditorialPolicyPage() {
       <ul>
         <li>Sponsored or advertiser-influenced content of any kind</li>
         <li>Promotional reviews of specific commercial products or services</li>
-        <li>Content that recommends a specific treatment for a specific person</li>
+        <li>Content that recommends a specific medication or intervention for a specific person</li>
         <li>Articles designed to generate leads for any commercial entity</li>
         <li>
           Miracle framing, before-and-after narratives designed to create false expectations, or sensationalized
           health claims
         </li>
-        <li>Content that presents unproven treatments as established medical fact</li>
+        <li>Content that presents unproven approaches as established medical fact</li>
       </ul>
 
       <h2 id="medical-claims">How We Handle Medical Claims</h2>
       <p>We treat medical claim accuracy as the highest editorial priority.</p>
       <ul>
         <li>
-          Claims about treatment efficacy are attributed to named published sources (clinical trials, FDA prescribing
-          information, peer-reviewed journals, major health authority publications)
+          Claims about medication or intervention efficacy are attributed to named published sources (clinical trials,
+          FDA prescribing information, peer-reviewed journals, major health authority publications)
         </li>
         <li>
           We distinguish between what the evidence establishes and what is still uncertain or debated
         </li>
         <li>We do not present off-label medication use as routine or universally safe</li>
         <li>
-          We include medical disclaimers on all content involving clinical decisions, medications, or treatments
+          We include medical disclaimers on all content involving clinical decisions or medications
         </li>
         <li>
           We identify the specific type of evidence behind major claims (clinical trial, meta-analysis, observational
@@ -136,13 +135,13 @@ export default function EditorialPolicyPage() {
       </p>
       <ul>
         <li>
-          Articles covering treatment mechanisms and chronic disease biology are reviewed every 24 months
+          Articles covering medication mechanisms and chronic disease biology are reviewed every 24 months
         </li>
         <li>
           Articles covering medications, clinical outcomes, and patient guidance are reviewed every 12 months
         </li>
         <li>
-          Articles covering insurance, drug access, and pricing are reviewed every 3 months
+          Articles covering drug access and regulatory developments are reviewed every 3 months
         </li>
         <li>
           Articles covering scam alerts, FDA actions, and regulatory developments are reviewed monthly

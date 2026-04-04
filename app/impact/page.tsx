@@ -82,7 +82,7 @@ const operationalMilestones = [
     year: "September 2024",
     title: "Resource Library",
     description:
-      "Expanded educational resources for individuals seeking credible information on weight health and evidence-based treatment options from qualified providers.",
+      "Expanded educational resources for individuals seeking credible information on weight health and evidence-based approaches from qualified providers.",
   },
   {
     year: "December 2024",
@@ -185,7 +185,7 @@ export default function ImpactPage() {
               </p>
               
               <p className="text-muted-foreground leading-relaxed mb-4">
-                All educational content is reviewed by qualified health professionals and based on current scientific evidence. We clearly distinguish between educational information and medical advice, and we do not make claims about diagnosis, treatment, or cure of any medical condition.
+                All educational content is reviewed by qualified health professionals and based on current scientific evidence. We clearly distinguish between educational information and medical advice,               and we do not make claims about the diagnosis or cure of any medical condition.
               </p>
 
               <p className="text-muted-foreground leading-relaxed mb-4">

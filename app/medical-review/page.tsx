@@ -26,8 +26,8 @@ export default function MedicalReviewPage() {
       toc={toc}
     >
       <p>
-        The Healthy Weight Literacy Foundation publishes content that covers medications, clinical treatments,
-        metabolic conditions, and other topics where accuracy has real consequences for readers. This page describes
+        The Healthy Weight Literacy Foundation publishes content that covers medications, metabolic conditions, and
+        other topics where accuracy has real consequences for readers. This page describes
         how that content is reviewed before publication and how it is kept current after publication.
       </p>
 
@@ -37,14 +37,14 @@ export default function MedicalReviewPage() {
         accordingly.
       </p>
       <p>
-        <strong>Clinical content</strong> — articles covering specific medications, treatments, dosing, side effects,
+        <strong>Clinical content</strong> — articles covering specific medications, dosing, side effects,
         contraindications, or clinical outcomes — receives the most rigorous review process. This includes all GLP-1
         medication articles, compound pharmacy guidance, metabolic health content, and any article making specific
-        claims about treatment efficacy or safety.
+        claims about medication efficacy or safety.
       </p>
       <p>
-        <strong>Patient guidance content</strong> — articles covering what to ask a provider, how to evaluate a
-        telehealth service, or how to interpret a medical situation — is reviewed for accuracy, appropriate hedging,
+        <strong>Patient guidance content</strong> — articles covering what to ask a provider, how to interpret a
+        medical situation, or how to find reliable health information — is reviewed for accuracy, appropriate hedging,
         and absence of content that could be read as individual medical advice.
       </p>
       <p>
@@ -72,13 +72,13 @@ export default function MedicalReviewPage() {
       </p>
       <p>
         <strong>Safety and harm risk</strong> — Could any passage be misread in a way that leads a patient to delay
-        seeking care, discontinue a treatment incorrectly, or make a clinical decision without appropriate provider
-        guidance? Review identifies and corrects these passages.
+        seeking care, make changes to their medication incorrectly, or make a clinical decision without appropriate
+        provider guidance? Review identifies and corrects these passages.
       </p>
       <p>
-        <strong>Contraindication completeness</strong> — For articles covering medications or treatments, review
-        confirms that relevant contraindications, precautions, and populations for whom the treatment is not
-        appropriate are addressed.
+        <strong>Contraindication completeness</strong> — For articles covering medications, review confirms that
+        relevant contraindications, precautions, and populations for whom the medication is not appropriate are
+        addressed.
       </p>
       <p>
         <strong>Disclaimer placement</strong> — Are medical disclaimers present at appropriate points in the article?
@@ -87,9 +87,9 @@ export default function MedicalReviewPage() {
 
       <h2 id="what-review-does-not-cover">What Review Does Not Cover</h2>
       <p>
-        Medical review is an accuracy and safety process, not a clinical consultation. Our review process confirms
-        that articles are factually sound and do not contain harmful guidance. It does not constitute endorsement of
-        any specific treatment for any specific person.
+        Medical review is an accuracy and safety process. Our review process confirms that articles are factually
+        sound and do not contain harmful guidance. It does not constitute a recommendation of any specific medication
+        or approach for any specific person.
       </p>
       <p>
         Nothing published on WeightLiteracy.org is medical advice. Our content is educational. Readers should always
@@ -99,9 +99,9 @@ export default function MedicalReviewPage() {
       <h2 id="review-frequency">Review Frequency</h2>
       <p>
         Published articles are assigned a review schedule based on how quickly the relevant medical landscape is
-        likely to change. Articles covering FDA-approved medications, clinical trial evidence, and treatment protocols
-        are reviewed on an annual basis at minimum. Articles covering areas of active regulatory or policy change —
-        including drug access, compound pharmacy rules, and insurance coverage — are reviewed more frequently.
+        likely to change. Articles covering FDA-approved medications and clinical trial evidence are reviewed on an
+        annual basis at minimum. Articles covering areas of active regulatory or policy change — including drug access
+        and compound pharmacy rules — are reviewed more frequently.
       </p>
       <p>
         When a significant development occurs in a covered area — a new FDA warning, a major trial publication, a

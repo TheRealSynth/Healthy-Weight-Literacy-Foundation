@@ -78,7 +78,7 @@ export default function HowWeCreateContentPage() {
         claim cannot be sourced, it is generalized or removed.
       </p>
       <p>
-        Sources are listed at the end of every clinical or treatment-related article. Source selection follows a
+        Sources are listed at the end of every clinical article. Source selection follows a
         hierarchy: peer-reviewed primary research, systematic reviews, FDA prescribing information and regulatory
         documents, major health authority publications. Manufacturer materials, press releases, and secondary
         aggregators are not used as primary sources.
@@ -127,19 +127,20 @@ export default function HowWeCreateContentPage() {
           to change
         </li>
         <li>
-          The article does not contain content that could cause a reader to delay appropriate care, discontinue
-          treatment incorrectly, or make a clinical decision without provider guidance
+          The article does not contain content that could cause a reader to delay appropriate care or make a clinical
+          decision without provider guidance
         </li>
       </ul>
 
       <h2 id="medical-disclaimers">Medical Disclaimers</h2>
       <p>
-        All articles covering medications, treatments, clinical conditions, or health decisions include this
-        disclaimer or a close equivalent:
+        All articles covering medications, clinical conditions, or health decisions include this disclaimer or a close
+        equivalent:
       </p>
       <blockquote>
-        This article is for educational purposes only. It is not medical advice, diagnosis, or treatment
-        recommendation. Talk to a qualified healthcare provider before making any changes to your health plan.
+        This article is for educational purposes only. It is not medical advice, diagnosis, or a recommendation for
+        any specific course of action. Talk to a qualified healthcare provider before making any changes to your
+        health plan.
       </blockquote>
       <p>
         The presence of a disclaimer does not make a harmful article safe. Our review process is designed to ensure
@@ -164,8 +165,8 @@ export default function HowWeCreateContentPage() {
         selection, or article framing.
       </p>
       <p>
-        We do not use patient testimonials as evidence of treatment efficacy. We do not use before-and-after
-        narratives to imply results. We do not publish content that presents anecdote as data.
+        We do not use patient testimonials as evidence of efficacy. We do not use before-and-after narratives to
+        imply results. We do not publish content that presents anecdote as data.
       </p>
       <p>
         We do not publish articles that cannot be sourced, hedged, and reviewed to our editorial standard —

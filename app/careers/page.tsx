@@ -47,7 +47,7 @@ const openPositions = [
 ]
 
 const benefits = [
-  "Comprehensive health, dental, and vision insurance",
+  "Comprehensive health, dental, and vision benefits",
   "Flexible work arrangements",
   "Professional development stipend",
   "Generous PTO and paid holidays",

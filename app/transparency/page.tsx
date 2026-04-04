@@ -27,7 +27,7 @@ export default function TransparencyPage() {
             <p>
               Healthy Weight Literacy Foundation is organized and operated exclusively for educational and public-benefit
               purposes. Our work is focused on improving public understanding of weight health, obesity, and
-              evidence-based treatment options. We exist to make accurate health information more accessible — not to
+              evidence-based health information. We exist to make accurate health information more accessible — not to
               generate revenue, sell products, or provide individualized medical services.
             </p>
 
