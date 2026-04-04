@@ -23,7 +23,7 @@ const partnerTypes = [
       "Evidence-based educational materials",
       "Staff training and certification",
       "Patient referral pathways",
-      "Telehealth integration support",
+      "Patient health literacy resources",
     ],
   },
   {

@@ -18,10 +18,10 @@ export const metadata: Metadata = generatePageMetadata({
 
 const pressReleases = [
   {
-    title: "HWLF Expands Telehealth Services to 10 New States",
+    title: "HWLF Launches Expanded Health Literacy Resource Library",
     date: "2024-01-15",
     excerpt:
-      "The Healthy Weight Literacy Foundation announced today the expansion of its virtual nutrition counseling services...",
+      "The Healthy Weight Literacy Foundation announced today the expansion of its free, evidence-based educational resources on nutrition, weight health, and metabolic wellness...",
   },
   {
     title: "Annual Report Shows Record Impact in 2023",

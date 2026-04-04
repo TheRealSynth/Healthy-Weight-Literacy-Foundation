@@ -23,9 +23,6 @@ export const ROUTES = {
   VOLUNTEER: "/volunteer",
   PARTNER: "/partner",
   
-  // Services
-  TELEHEALTH_INTAKE: "/telehealth-intake",
-  
   // Information pages
   IMPACT: "/impact",
   CAREERS: "/careers",
