@@ -4,17 +4,20 @@ import Image from "next/image"
 import { PageHeader } from "@/components/layout/page-header"
 import { Section } from "@/components/layout/section"
 import { Container } from "@/components/layout/container"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { getBlogPost, getBlogPosts } from "@/lib/supabase-blog"
 import { generatePageMetadata } from "@/lib/seo"
-import { formatDate } from "@/lib/utils"
+import { formatDate } from "@/lib/utils" 
 import { ArticleSchema } from "@/components/seo/article-schema"
 import { ArticleRenderer } from "@/components/content/article-renderer"
 import DOMPurify from "isomorphic-dompurify"
-import { Twitter, Facebook, Share2, Clock } from "lucide-react"
+import { Twitter, Facebook, Share2, Clock } from "lucide-react
+import { renderMarkdownContent } from "@/lib/render-markdown"
+import { Clock } from "lucide-react"
+
 import Link from "next/link"
+import { ShareButtons } from "@/components/blocks/share-buttons"
 
 const HTML_PATTERN = /<\/?[a-z][^>]*>/i
 
@@ -133,20 +136,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <ArticleRenderer content={content} isHtml={isHtml} />
 
               {/* Share Section */}
-              <div className="mt-12 pt-8 border-t">
-                <h3 className="text-lg font-semibold text-secondary mb-4">Share this article</h3>
-                <div className="flex gap-3">
-                  <Button variant="outline" size="icon" aria-label="Share on Twitter">
-                    <Twitter className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="icon" aria-label="Share on Facebook">
-                    <Facebook className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="icon" aria-label="Copy link">
-                    <Share2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
+              <ShareButtons
+                url={`${siteConfig.url}/blog/${post.slug}`}
+                title={post.title}
+              />
 
               {/* Related Posts */}
               {relatedPosts.length > 0 && (
@@ -196,12 +189,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     />
                     <div>
                       <p className="font-medium text-secondary">{post.author}</p>
-                      <p className="text-sm text-muted-foreground">Health Writer</p>
+                      {post.author_title && (
+                        <p className="text-sm text-muted-foreground">{post.author_title}</p>
+                      )}
                     </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    Passionate about empowering individuals through education and accessible healthcare resources.
-                  </p>
+                  {post.author_bio && (
+                    <p className="text-sm text-muted-foreground">{post.author_bio}</p>
+                  )}
                 </CardContent>
               </Card>
 
