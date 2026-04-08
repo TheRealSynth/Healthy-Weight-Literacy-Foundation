@@ -11,6 +11,7 @@ import { getBlogPost, getBlogPosts } from "@/lib/supabase-blog"
 import { generatePageMetadata } from "@/lib/seo"
 import { formatDate } from "@/lib/utils"
 import { ArticleSchema } from "@/components/seo/article-schema"
+import { ArticleRenderer } from "@/components/content/article-renderer"
 import { Twitter, Facebook, Share2, Clock } from "lucide-react"
 import Link from "next/link"
 
@@ -104,10 +105,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               />
 
               {/* Article Content */}
-              <article
-                className="prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
+              <ArticleRenderer content={post.content} />
 
               {/* Share Section */}
               <div className="mt-12 pt-8 border-t">
