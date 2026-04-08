@@ -2,20 +2,33 @@
 
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
+import DOMPurify from "isomorphic-dompurify"
 
 interface ArticleRendererProps {
   content: string
   className?: string
 }
 
-// Detect whether content is HTML or Markdown.
-// A string is treated as HTML if it contains any opening HTML tag.
+// A string is treated as HTML if it contains any recognisable HTML tag.
 function isHTML(content: string): boolean {
   return /<\/?[a-z][^>]*>/i.test(content)
 }
 
+const ALLOWED_TAGS = [
+  "p", "br", "strong", "em", "b", "i", "u", "s",
+  "h1", "h2", "h3", "h4", "h5", "h6",
+  "ul", "ol", "li", "blockquote", "pre", "code",
+  "a", "img", "figure", "figcaption",
+  "table", "thead", "tbody", "tr", "th", "td",
+  "hr", "sup", "sub", "span", "div",
+]
+
+const ALLOWED_ATTR = [
+  "href", "src", "alt", "title", "class", "id", "target", "rel",
+]
+
 export function ArticleRenderer({ content, className }: ArticleRendererProps) {
-  const baseClass = `prose prose-lg max-w-none ${className ?? ""}`
+  const baseClass = `prose prose-lg max-w-none font-sans ${className ?? ""}`
 
   if (!content) {
     return (
@@ -26,21 +39,23 @@ export function ArticleRenderer({ content, className }: ArticleRendererProps) {
   }
 
   if (isHTML(content)) {
-    // First-party CMS HTML — render directly
+    const clean = DOMPurify.sanitize(content, {
+      ALLOWED_TAGS,
+      ALLOWED_ATTR,
+      FORCE_BODY: true,
+    })
     return (
       <article
         className={baseClass}
-        dangerouslySetInnerHTML={{ __html: content }}
+        dangerouslySetInnerHTML={{ __html: clean }}
       />
     )
   }
 
-  // Markdown path — safe, no raw HTML exposed
+  // Markdown path — no raw HTML ever exposed to the DOM
   return (
     <article className={baseClass}>
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>
-        {content}
-      </ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
     </article>
   )
 }
