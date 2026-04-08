@@ -24,11 +24,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}${ROUTES.CAREERS}`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}${ROUTES.FINANCIALS}`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.5 },
     { url: `${baseUrl}${ROUTES.PRESS}`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+    { url: `${baseUrl}${ROUTES.TRANSPARENCY}`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.4 },
+    { url: `${baseUrl}${ROUTES.EDITORIAL_POLICY}`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.4 },
+    { url: `${baseUrl}${ROUTES.MEDICAL_REVIEW}`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.4 },
+    { url: `${baseUrl}${ROUTES.HOW_WE_CREATE_CONTENT}`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.4 },
     { url: `${baseUrl}${ROUTES.PRIVACY}`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${baseUrl}${ROUTES.COOKIES}`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${baseUrl}${ROUTES.ACCESSIBILITY}`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${baseUrl}${ROUTES.TERMS}`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${baseUrl}${ROUTES.TELEHEALTH_INTAKE}`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
   ]
 
   // Blog post dynamic routes

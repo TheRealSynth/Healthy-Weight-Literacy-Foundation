@@ -110,7 +110,7 @@ In the age of information overload, it's easy to fall prey to nutrition myths. L
 **Truth:** Healthy fats from sources like avocados, nuts, and olive oil are crucial for health.
 
 ## Myth 3: You Need to Eat Every 2-3 Hours
-**Truth:** Meal timing is less important than overall calorie and nutrient intake.
+**Truth:** Meal timing is less important than overall calorie and nutrient consumption.
 
 ## Myth 4: Detox Diets Cleanse Your Body
 **Truth:** Your liver and kidneys already do an excellent job of detoxification.
@@ -264,7 +264,7 @@ These discussions can help people feel more confident and supported as they lear
 
 ## Disclaimer
 
-This information is for general education only and is not a substitute for medical advice. Always talk with a licensed health professional about your own health, symptoms, and treatment options.
+This information is for general education only and is not a substitute for medical advice. Always talk with a licensed health professional about your own health and any medical concerns.
     `,
   },
   {
@@ -342,7 +342,7 @@ General examples include:
 - Moving the body in gentle, enjoyable ways  
 - Making space for rest or relaxation  
 
-These actions are not solutions or treatments, but they can support the body's natural ability to cope with stress over time.
+These actions are not cures, but they can support the body's natural ability to cope with stress over time.
 
 ## How to Take Action in a Safe, Informed Way
 
@@ -367,7 +367,7 @@ Having open conversations can support better understanding and confidence. Gener
 
 ## Disclaimer
 
-This information is for general education only and is not a substitute for medical advice. Always talk with a licensed health professional about your own health, symptoms, and treatment options.
+This information is for general education only and is not a substitute for medical advice. Always talk with a licensed health professional about your own health and any medical concerns.
     `,
   },
   {
@@ -493,7 +493,7 @@ If nutrition labels raise questions, general topics to discuss may include:
 
 ## Disclaimer
 
-This information is for general education only and is not a substitute for medical advice. Always talk with a licensed health professional about your own health, symptoms, and treatment options.
+This information is for general education only and is not a substitute for medical advice. Always talk with a licensed health professional about your own health and any medical concerns.
     `,
   },
   {
@@ -567,11 +567,11 @@ While water is a common and accessible choice, hydration can come from many sour
 - Soups and broths  
 - Fruits and vegetables with high water content  
 
-People have different preferences and cultural habits around beverages. What matters most is overall fluid intake across the day.
+People have different preferences and cultural habits around beverages. What matters most is overall fluid consumption across the day.
 
 ## Everyday Factors That Affect Hydration
 
-Daily life can make hydration easier or harder. Factors that may influence fluid intake include:
+Daily life can make hydration easier or harder. Factors that may influence hydration levels include:
 
 - Busy schedules or long workdays  
 - Limited access to water during activities  
@@ -602,7 +602,7 @@ Hydration questions that may support informed conversations include:
 
 ## Disclaimer
 
-This information is for general education only and is not a substitute for medical advice. Always talk with a licensed health professional about your own health, symptoms, and treatment options.
+This information is for general education only and is not a substitute for medical advice. Always talk with a licensed health professional about your own health and any medical concerns.
     `,
   },
   {
@@ -707,7 +707,7 @@ Open conversations can support better understanding and informed decisions. Gene
 
 ## Disclaimer
 
-This information is for general education only and is not a substitute for medical advice. Always talk with a licensed health professional about your own health, symptoms, and treatment options.
+This information is for general education only and is not a substitute for medical advice. Always talk with a licensed health professional about your own health and any medical concerns.
     `,
   },
 ]

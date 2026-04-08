@@ -7,12 +7,40 @@ import { Container } from "@/components/layout/container"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { getBlogPost, getBlogPosts } from "@/lib/supabase-blog"
-import { generatePageMetadata, generateArticleJsonLd, siteConfig } from "@/lib/seo"
-import { formatDate } from "@/lib/utils"
+import { generatePageMetadata } from "@/lib/seo"
+import { formatDate } from "@/lib/utils" 
+import { ArticleSchema } from "@/components/seo/article-schema"
+import { ArticleRenderer } from "@/components/content/article-renderer"
+import DOMPurify from "isomorphic-dompurify"
+import { Twitter, Facebook, Share2, Clock } from "lucide-react
 import { renderMarkdownContent } from "@/lib/render-markdown"
 import { Clock } from "lucide-react"
+
 import Link from "next/link"
 import { ShareButtons } from "@/components/blocks/share-buttons"
+
+const HTML_PATTERN = /<\/?[a-z][^>]*>/i
+
+const ALLOWED_TAGS = [
+  "p", "br", "strong", "em", "b", "i", "u", "s",
+  "h1", "h2", "h3", "h4", "h5", "h6",
+  "ul", "ol", "li", "blockquote", "pre", "code",
+  "a", "img", "figure", "figcaption",
+  "table", "thead", "tbody", "tr", "th", "td",
+  "hr", "sup", "sub", "span", "div",
+]
+const ALLOWED_ATTR = ["href", "src", "alt", "title", "class", "id", "target", "rel"]
+
+function prepareContent(raw: string): { content: string; isHtml: boolean } {
+  const isHtml = HTML_PATTERN.test(raw)
+  if (isHtml) {
+    return {
+      content: DOMPurify.sanitize(raw, { ALLOWED_TAGS, ALLOWED_ATTR }),
+      isHtml: true,
+    }
+  }
+  return { content: raw, isHtml: false }
+}
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>
@@ -46,20 +74,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const allPosts = await getBlogPosts()
   const relatedPosts = allPosts.filter((p) => p.slug !== post.slug && p.category === post.category).slice(0, 2)
-
-  const articleJsonLd = generateArticleJsonLd({
-    title: post.title,
-    description: post.description,
-    publishedTime: post.published_at,
-    modifiedTime: post.updated_at,
-    author: post.author,
-    image: post.hero_image,
-    url: `${siteConfig.url}/blog/${post.slug}`,
-  })
+  const { content, isHtml } = prepareContent(post.content)
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
+      <ArticleSchema
+        title={post.title}
+        description={post.description}
+        slug={post.slug}
+        publishedAt={post.published_at}
+        updatedAt={post.updated_at ?? undefined}
+        category={post.category}
+      />
 
       <PageHeader title={post.title} breadcrumbs={[{ label: "Blog", href: "/blog" }, { label: post.title }]}>
         <div className="flex flex-wrap items-center gap-4 mt-4">
@@ -107,7 +133,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               />
 
               {/* Article Content */}
-              <article className="prose prose-lg max-w-none">{renderMarkdownContent(post.content)}</article>
+              <ArticleRenderer content={content} isHtml={isHtml} />
 
               {/* Share Section */}
               <ShareButtons

@@ -33,7 +33,7 @@ export default function TermsPage() {
             <p>
               HWLF provides educational content and resources related to nutrition, weight management, and metabolic
               health. Our services are intended for informational and educational purposes and are not a substitute for
-              professional medical advice, diagnosis, or treatment.
+              professional medical advice or diagnosis.
             </p>
 
             <h2>User Responsibilities</h2>

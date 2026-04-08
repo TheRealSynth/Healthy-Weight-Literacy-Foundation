@@ -16,10 +16,6 @@ export const trackPartnerFormSubmit = () => {
   trackEvent("partner_form_submit", "partnership", "Partnership Inquiry")
 }
 
-export const trackTelehealthIntakeSubmit = () => {
-  trackEvent("telehealth_intake_submit", "service", "Telehealth Intake")
-}
-
 export const trackDonationIntent = (method: string) => {
   trackEvent("donation_intent", "conversion", `Donation Interest - ${method}`)
 }

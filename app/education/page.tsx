@@ -40,7 +40,7 @@ const categories = [
     icon: Heart,
     title: "Public Health Awareness",
     description: "Resources focused on community health, prevention, and health literacy.",
-    matchCategories: ["Public Health Awareness", "Telehealth Education"],
+    matchCategories: ["Public Health Awareness"],
   },
 ]
 

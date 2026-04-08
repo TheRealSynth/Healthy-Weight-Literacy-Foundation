@@ -28,7 +28,7 @@ const openPositions = [
     department: "Clinical",
     location: "Remote",
     type: "Part-time",
-    description: "Provide telehealth nutrition consultations and develop educational content for our programs.",
+    description: "Develop evidence-based educational content on nutrition and weight health for our programs.",
   },
   {
     title: "Community Outreach Specialist",
@@ -47,7 +47,7 @@ const openPositions = [
 ]
 
 const benefits = [
-  "Comprehensive health, dental, and vision insurance",
+  "Comprehensive health, dental, and vision benefits",
   "Flexible work arrangements",
   "Professional development stipend",
   "Generous PTO and paid holidays",

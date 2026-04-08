@@ -36,7 +36,7 @@ const whatWeDo = [
     icon: Users,
     title: "Promote Awareness of Evidence-Based Options",
     description:
-      "We highlight the difference between evidence-based treatment approaches and misleading or unverified health claims.",
+      "We highlight the difference between evidence-based health information and misleading or unverified health claims.",
   },
 ]
 
@@ -62,7 +62,7 @@ export default function AboutPage() {
             </h1>
             <p className="mt-4 text-xl text-white/90 max-w-2xl mx-auto text-balance">
               Weight Literacy Foundation exists to improve public understanding of weight health, obesity, and
-              evidence-based treatment options. Our goal is to make complex health information easier to understand so
+              evidence-based health information. Our goal is to make complex health information easier to understand so
               individuals and families can make more informed decisions.
             </p>
           </div>
@@ -78,7 +78,7 @@ export default function AboutPage() {
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed text-balance">
               We focus on health literacy in the area of weight health. That includes helping people better understand
-              obesity, treatment approaches, patient questions, and the difference between evidence-based information
+              obesity, patient questions, available options, and the difference between evidence-based information
               and misleading claims.
             </p>
           </div>
@@ -118,8 +118,8 @@ export default function AboutPage() {
               <h2 className="text-3xl font-bold tracking-tight text-secondary sm:text-4xl">Who We Serve</h2>
               <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
                 Our work is intended for individuals seeking reliable health education, families supporting loved ones,
-                and communities with limited access to clear, trustworthy information about weight health and treatment
-                options.
+                and communities with limited access to clear, trustworthy information about weight health and their
+                available options.
               </p>
             </div>
             <div className="relative">
@@ -144,7 +144,7 @@ export default function AboutPage() {
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed text-balance">
               Weight Literacy Foundation is an education-first organization. We do not provide direct medical care,
-              diagnosis, or individualized treatment advice. Our content is designed for general informational purposes
+              diagnosis, or individualized medical advice. Our content is designed for general informational purposes
               and should be used as a starting point for more informed conversations with qualified healthcare
               professionals.
             </p>

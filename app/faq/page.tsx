@@ -27,7 +27,7 @@ const faqItems = [
   {
     question: "How do I enroll in a program?",
     answer:
-      "You can enroll in our programs by visiting our Programs page and clicking 'Learn More' on any program that interests you. From there, you'll find enrollment instructions specific to that program. For telehealth services, you can start by completing our online intake form.",
+      "You can enroll in our programs by visiting our Programs page and clicking 'Learn More' on any program that interests you. From there, you'll find enrollment instructions specific to that program.",
   },
   {
     question: "Do you offer services in languages other than English?",
@@ -43,16 +43,6 @@ const faqItems = [
     question: "Is my donation tax-deductible?",
     answer:
       "Yes, the Healthy Weight Literacy Foundation is a registered 501(c)(3) nonprofit organization, and your donation is tax-deductible to the fullest extent allowed by law. You will receive a receipt for your records.",
-  },
-  {
-    question: "How does telehealth nutrition counseling work?",
-    answer:
-      "Our telehealth services connect you with registered dietitians via secure video calls. After completing an intake form, you'll be matched with a provider who fits your needs. Sessions typically last 30-60 minutes and can be scheduled at times convenient for you, including evenings and weekends.",
-  },
-  {
-    question: "Do you accept insurance for telehealth services?",
-    answer:
-      "We work with many insurance providers for our telehealth nutrition services. We also offer self-pay options on a sliding scale. During the intake process, we'll help you understand your coverage options and out-of-pocket costs.",
   },
   {
     question: "How can my organization partner with HWLF?",

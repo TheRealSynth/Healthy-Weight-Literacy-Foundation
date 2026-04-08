@@ -37,49 +37,7 @@ export const partnerFormSchema = z.object({
   description: z.string().min(20, "Please provide more details about your organization"),
 })
 
-export const telehealthIntakeSchema = z.object({
-  // Demographics
-  firstName: z.string().min(2, "First name must be at least 2 characters"),
-  lastName: z.string().min(2, "Last name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().min(10, "Please enter a valid phone number"),
-  dateOfBirth: z.string().min(1, "Please enter your date of birth"),
-  address: z.string().min(5, "Please enter your address"),
-  city: z.string().min(2, "Please enter your city"),
-  state: z.string().min(2, "Please select your state"),
-  zipCode: z.string().min(5, "Please enter a valid zip code"),
-
-  // Goals
-  primaryGoals: z.array(z.string()).min(1, "Please select at least one goal"),
-  otherGoals: z.string().optional(),
-
-  // Health Information
-  currentWeight: z.string().optional(),
-  height: z.string().optional(),
-  medicalConditions: z.array(z.string()).optional(),
-  medications: z.string().optional(),
-  allergies: z.string().optional(),
-  previousPrograms: z.string().optional(),
-
-  // Insurance
-  paymentMethod: z.enum(["insurance", "self-pay"]),
-  insuranceProvider: z.string().optional(),
-  insuranceId: z.string().optional(),
-
-  // Consent
-  consentToTreatment: z.boolean().refine((val) => val === true, {
-    message: "You must consent to treatment",
-  }),
-  consentToPrivacy: z.boolean().refine((val) => val === true, {
-    message: "You must acknowledge the privacy policy",
-  }),
-  consentToContact: z.boolean().refine((val) => val === true, {
-    message: "You must consent to be contacted",
-  }),
-})
-
 export type ContactFormData = z.infer<typeof contactFormSchema>
 export type NewsletterFormData = z.infer<typeof newsletterFormSchema>
 export type VolunteerFormData = z.infer<typeof volunteerFormSchema>
 export type PartnerFormData = z.infer<typeof partnerFormSchema>
-export type TelehealthIntakeData = z.infer<typeof telehealthIntakeSchema>

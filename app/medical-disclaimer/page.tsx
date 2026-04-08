@@ -37,7 +37,7 @@ export default function MedicalDisclaimerPage() {
 
             <h2>Consult a Qualified Healthcare Professional</h2>
             <p>
-              If you have questions about your health, a medical condition, or treatment options, you should speak
+              If you have questions about your health or a medical condition, you should speak
               directly with a licensed healthcare professional. That includes physicians, nurse practitioners, registered
               dietitians, pharmacists, and other qualified clinicians with the training and information necessary to
               evaluate your specific situation.
@@ -50,7 +50,7 @@ export default function MedicalDisclaimerPage() {
             <h2>Individual Circumstances Vary</h2>
             <p>
               Health information that applies generally to a population may not apply to any individual person. Weight
-              health, obesity treatment, and related topics involve clinical complexity and individual variation that
+              health, obesity, and related topics involve clinical complexity and individual variation that
               general educational content cannot address. What is appropriate for one person may not be appropriate for
               another.
             </p>

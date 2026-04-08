@@ -55,7 +55,7 @@ const communityUseCases = [
     title: "Individual Learning Scenario",
     context: "Self-Directed Use Case Example",
     description:
-      "An individual accesses our telehealth intake forms and educational articles to learn about metabolic health and nutrition. They engage with our evidence-based content independently.",
+      "An individual accesses our educational articles to learn about metabolic health and nutrition. They engage with our evidence-based content independently.",
     focus: "Self-paced learning and health literacy education",
   },
 ]
@@ -71,7 +71,7 @@ const operationalMilestones = [
     year: "March 2024",
     title: "Content Expansion",
     description:
-      "Published 20+ peer-reviewed articles covering GLP-1 medications, telehealth education, nutrition science, and metabolic health topics.",
+      "Published 20+ peer-reviewed articles covering GLP-1 medications, nutrition science, metabolic health, and weight management topics.",
   },
   {
     year: "June 2024",
@@ -80,9 +80,9 @@ const operationalMilestones = [
   },
   {
     year: "September 2024",
-    title: "Telehealth Forms",
+    title: "Resource Library",
     description:
-      "Created intake forms and educational resources for individuals seeking telehealth weight management services from qualified providers.",
+      "Expanded educational resources for individuals seeking credible information on weight health and evidence-based approaches from qualified providers.",
   },
   {
     year: "December 2024",
@@ -185,7 +185,7 @@ export default function ImpactPage() {
               </p>
               
               <p className="text-muted-foreground leading-relaxed mb-4">
-                All educational content is reviewed by qualified health professionals and based on current scientific evidence. We clearly distinguish between educational information and medical advice, and we do not make claims about diagnosis, treatment, or cure of any medical condition.
+                All educational content is reviewed by qualified health professionals and based on current scientific evidence. We clearly distinguish between educational information and medical advice,               and we do not make claims about the diagnosis or cure of any medical condition.
               </p>
 
               <p className="text-muted-foreground leading-relaxed mb-4">
