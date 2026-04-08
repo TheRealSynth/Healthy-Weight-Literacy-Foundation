@@ -1,23 +1,20 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Image from "next/image"
+import Link from "next/link"
 import { PageHeader } from "@/components/layout/page-header"
 import { Section } from "@/components/layout/section"
 import { Container } from "@/components/layout/container"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { getBlogPost, getBlogPosts } from "@/lib/supabase-blog"
-import { generatePageMetadata } from "@/lib/seo"
-import { formatDate } from "@/lib/utils" 
+import { generatePageMetadata, siteConfig } from "@/lib/seo"
+import { formatDate } from "@/lib/utils"
 import { ArticleSchema } from "@/components/seo/article-schema"
 import { ArticleRenderer } from "@/components/content/article-renderer"
 import DOMPurify from "isomorphic-dompurify"
-import { Twitter, Facebook, Share2, Clock } from "lucide-react
-import { renderMarkdownContent } from "@/lib/render-markdown"
 import { Clock } from "lucide-react"
-
-import Link from "next/link"
-import { ShareButtons } from "@/components/blocks/share-buttons"
 
 const HTML_PATTERN = /<\/?[a-z][^>]*>/i
 
@@ -134,12 +131,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
               {/* Article Content */}
               <ArticleRenderer content={content} isHtml={isHtml} />
-
-              {/* Share Section */}
-              <ShareButtons
-                url={`${siteConfig.url}/blog/${post.slug}`}
-                title={post.title}
-              />
 
               {/* Related Posts */}
               {relatedPosts.length > 0 && (
