@@ -1,2 +1,4 @@
+run = "npm run start"
+
 [agent]
 expertMode = true
