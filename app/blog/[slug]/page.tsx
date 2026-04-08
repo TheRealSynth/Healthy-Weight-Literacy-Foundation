@@ -12,8 +12,32 @@ import { generatePageMetadata } from "@/lib/seo"
 import { formatDate } from "@/lib/utils"
 import { ArticleSchema } from "@/components/seo/article-schema"
 import { ArticleRenderer } from "@/components/content/article-renderer"
+import DOMPurify from "isomorphic-dompurify"
 import { Twitter, Facebook, Share2, Clock } from "lucide-react"
 import Link from "next/link"
+
+const HTML_PATTERN = /<\/?[a-z][^>]*>/i
+
+const ALLOWED_TAGS = [
+  "p", "br", "strong", "em", "b", "i", "u", "s",
+  "h1", "h2", "h3", "h4", "h5", "h6",
+  "ul", "ol", "li", "blockquote", "pre", "code",
+  "a", "img", "figure", "figcaption",
+  "table", "thead", "tbody", "tr", "th", "td",
+  "hr", "sup", "sub", "span", "div",
+]
+const ALLOWED_ATTR = ["href", "src", "alt", "title", "class", "id", "target", "rel"]
+
+function prepareContent(raw: string): { content: string; isHtml: boolean } {
+  const isHtml = HTML_PATTERN.test(raw)
+  if (isHtml) {
+    return {
+      content: DOMPurify.sanitize(raw, { ALLOWED_TAGS, ALLOWED_ATTR }),
+      isHtml: true,
+    }
+  }
+  return { content: raw, isHtml: false }
+}
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>
@@ -47,6 +71,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const allPosts = await getBlogPosts()
   const relatedPosts = allPosts.filter((p) => p.slug !== post.slug && p.category === post.category).slice(0, 2)
+  const { content, isHtml } = prepareContent(post.content)
 
   return (
     <>
@@ -105,7 +130,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               />
 
               {/* Article Content */}
-              <ArticleRenderer content={post.content} />
+              <ArticleRenderer content={content} isHtml={isHtml} />
 
               {/* Share Section */}
               <div className="mt-12 pt-8 border-t">
