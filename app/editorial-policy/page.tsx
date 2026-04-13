@@ -24,7 +24,7 @@ export default function EditorialPolicyPage() {
   return (
     <PolicyLayout
       title="Editorial Policy"
-      lastUpdated="June 2025"
+      lastUpdated="April 2026"
       toc={toc}
     >
       <p>
@@ -48,6 +48,12 @@ export default function EditorialPolicyPage() {
       <p>
         When we cover a medication, provider type, or product category, we do so because the topic is relevant to our
         readers&apos; health decisions — not because anyone paid us to cover it.
+      </p>
+      <p>
+        Our articles are researched and produced with the assistance of AI writing tools and reviewed by our editorial
+        team. We are not clinicians. Our review process checks content for source accuracy, appropriate hedging, and
+        the absence of harmful or misleading claims — it does not constitute clinical evaluation by a licensed
+        healthcare professional. We disclose this here because editorial transparency is central to our mission.
       </p>
 
       <h2 id="what-we-cover">What We Cover</h2>
@@ -160,7 +166,7 @@ export default function EditorialPolicyPage() {
       </p>
       <p>
         We do not sell advertising. We do not accept sponsored content. We do not participate in affiliate marketing
-        programs on content that is eligible for our Google Ad Grant or similar nonprofit programs.
+        programs on any content published on WeightLiteracy.org.
       </p>
       <p>
         If this policy changes in any material way, we will update this page and note the change date.

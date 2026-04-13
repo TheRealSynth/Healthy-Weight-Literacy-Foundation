@@ -12,9 +12,10 @@ export const metadata: Metadata = generatePageMetadata({
 
 const toc: TocItem[] = [
   { id: "where-articles-come-from", label: "Where Articles Come From" },
-  { id: "how-articles-are-structured", label: "How Articles Are Structured" },
+  { id: "how-articles-are-produced", label: "How Articles Are Produced" },
   { id: "sourcing-standards", label: "Sourcing Standards" },
   { id: "the-review-process", label: "The Review Process" },
+  { id: "what-this-means-for-readers", label: "What This Means for Readers" },
   { id: "pre-publish-checklist", label: "What We Check Before Publishing" },
   { id: "medical-disclaimers", label: "Medical Disclaimers" },
   { id: "corrections-and-updates", label: "Corrections and Updates" },
@@ -26,7 +27,7 @@ export default function HowWeCreateContentPage() {
   return (
     <PolicyLayout
       title="How We Create Content"
-      lastUpdated="June 2025"
+      lastUpdated="April 2026"
       toc={toc}
     >
       <p>
@@ -36,22 +37,32 @@ export default function HowWeCreateContentPage() {
 
       <h2 id="where-articles-come-from">Where Articles Come From</h2>
       <p>
-        Articles begin as topics selected by our editorial team based on what our readers actually need to know.
-      </p>
-      <p>
-        Topic selection is driven by three questions: Is this something patients, caregivers, or consumers are
-        genuinely confused about? Is accurate, non-promotional information on this topic hard to find? Does this fit
-        our educational mission?
+        Topics are selected based on what people seeking credible weight health information actually need to know. The
+        driving questions are: Is this something people are genuinely confused about? Is accurate, non-promotional
+        information on this topic hard to find? Does it fit our educational mission?
       </p>
       <p>
         We do not accept topic suggestions from commercial entities. Topics are not chosen based on advertising
         relationships, affiliate arrangements, or external promotional pressure.
       </p>
 
-      <h2 id="how-articles-are-structured">How Articles Are Structured</h2>
+      <h2 id="how-articles-are-produced">How Articles Are Produced</h2>
       <p>
-        Before any article is written, the editorial team produces a brief that defines:
+        Articles on WeightLiteracy.org are researched and written with the assistance of AI writing tools, then
+        reviewed and edited for accuracy, appropriate sourcing, clarity, and alignment with published clinical
+        guidelines. We use AI as a research and drafting tool — our editorial process determines what gets published
+        and in what form.
       </p>
+      <p>
+        Our editorial team is not composed of licensed medical professionals. We are not clinicians. We do not conduct
+        independent clinical research, and our review process does not substitute for professional medical expertise.
+      </p>
+      <p>
+        What our process does ensure: every factual claim is traced to a named published source, appropriate
+        uncertainty is disclosed, content that implies individual medical advice is identified and corrected, and
+        medical disclaimers are present on all health-related content.
+      </p>
+      <p>Before any article is produced, we define:</p>
       <ul>
         <li>The specific question the article answers</li>
         <li>Who the intended reader is and what they already know</li>
@@ -60,8 +71,8 @@ export default function HowWeCreateContentPage() {
         <li>What the reader should understand or be able to do after reading</li>
       </ul>
       <p>
-        This brief governs the entire article. An article that drifts from its brief — into overclaiming,
-        underclaiming, or serving a different purpose than the one it was assigned — is revised before it advances.
+        An article that drifts from these parameters — into overclaiming, underclaiming, or serving a different
+        purpose — is revised before it is published.
       </p>
 
       <h2 id="sourcing-standards">Sourcing Standards</h2>
@@ -85,26 +96,45 @@ export default function HowWeCreateContentPage() {
       </p>
 
       <h2 id="the-review-process">The Review Process</h2>
-      <p>Every article passes through multiple review stages before publication.</p>
       <p>
-        <strong>Editorial review</strong> covers structure, clarity, tone, and adherence to the brief. Reviewers
-        check that the article does not overstate evidence, does not present uncertain findings as established fact,
-        and does not contain language that could be read as directing a specific person toward a specific clinical
-        decision.
+        Every article is reviewed before publication against the following standards. This review is editorial in
+        nature — it is accuracy and consistency checking against published sources, not clinical evaluation by a
+        licensed healthcare professional.
       </p>
       <p>
-        <strong>Medical review</strong> for clinical content covers claim accuracy, source quality, contraindication
-        completeness, harm risk, and appropriate hedging. The specific scope of medical review is described on our{" "}
-        <a href="/medical-review">Medical Review Process</a> page.
+        <strong>Source accuracy</strong> — Are all clinical claims attributed to named published sources? We require
+        peer-reviewed research, FDA documents, or major health authority publications. Manufacturer materials and
+        non-peer-reviewed commentary are not used as primary sources.
       </p>
       <p>
-        <strong>Compliance review</strong> checks for absolute claims that should be hedged, statistics without
-        attribution, language that could constitute individual medical advice, and omissions that could mislead
-        readers about risk or appropriate use.
+        <strong>Appropriate hedging</strong> — Does the article correctly represent the certainty of the evidence?
+        Established findings are presented as established. Preliminary or contested findings are qualified accordingly.
       </p>
       <p>
-        An article that does not pass all three stages is revised. It is not published with known problems and
-        corrected afterward.
+        <strong>Harm screening</strong> — Could any passage be read in a way that could lead someone to delay care,
+        discontinue treatment incorrectly, or make a clinical decision without provider guidance? We identify and
+        correct these passages.
+      </p>
+      <p>
+        <strong>Disclaimer placement</strong> — Medical disclaimers are required at the top and bottom of all articles
+        covering medications, treatments, or clinical conditions.
+      </p>
+      <p>An article that does not pass this review is revised before publication.</p>
+      <p>
+        For more detail on how clinical content is evaluated, see our{" "}
+        <a href="/medical-review">Content Accuracy Standards</a> page.
+      </p>
+
+      <h2 id="what-this-means-for-readers">What This Means for Readers</h2>
+      <p>
+        Our content is educational. It is designed to help you understand a health topic well enough to ask better
+        questions and have more productive conversations with a qualified healthcare provider. It is not a substitute
+        for that provider and should not be used to make clinical decisions independently.
+      </p>
+      <p>
+        The value of our content is in presenting published evidence clearly, accurately, and without commercial bias
+        — not in clinical expertise we do not have. We are transparent about this distinction because readers deserve
+        to know the basis on which the content they read was produced.
       </p>
 
       <h2 id="pre-publish-checklist">What We Check Before Publishing</h2>

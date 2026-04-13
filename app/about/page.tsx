@@ -148,6 +148,13 @@ export default function AboutPage() {
               and should be used as a starting point for more informed conversations with qualified healthcare
               professionals.
             </p>
+            <p className="text-lg text-muted-foreground leading-relaxed text-balance mt-6">
+              Our educational content is researched and produced with the assistance of AI tools and reviewed by our
+              editorial team for accuracy, source quality, and appropriate disclaimers. Our team does not include
+              licensed medical professionals. Content is evaluated against published clinical sources — not through
+              independent clinical expertise. We are transparent about this because the distinction matters for how
+              readers should use what they find here.
+            </p>
           </div>
         </Container>
       </Section>
