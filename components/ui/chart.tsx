@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import * as RechartsPrimitive from 'recharts'
-import type { LegendProps, TooltipProps } from 'recharts'
+import type { LegendProps, TooltipContentProps } from 'recharts'
 import type {
   NameType,
   ValueType,
@@ -123,7 +123,7 @@ function ChartTooltipContent({
   color,
   nameKey,
   labelKey,
-}: TooltipProps<ValueType, NameType> &
+}: TooltipContentProps<ValueType, NameType> &
   React.ComponentProps<'div'> & {
     hideLabel?: boolean
     hideIndicator?: boolean
