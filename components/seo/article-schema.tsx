@@ -1,17 +1,4 @@
-import { siteConfig } from "@/lib/seo"
-
-// Categories that require MedicalWebPage schema instead of Article.
-// Values must match exactly the category strings stored in the blog_posts DB table.
-const MEDICAL_CATEGORIES = new Set([
-  "Metabolic Health",       // DB: confirmed present
-  "Medication Literacy",    // DB: confirmed present (covers GLP-1, obesity drugs)
-  "Weight Literacy",        // DB: confirmed present (obesity education equivalent)
-  "Education",              // DB: confirmed present (general obesity education)
-])
-
-function isMedicalCategory(category: string): boolean {
-  return MEDICAL_CATEGORIES.has(category)
-}
+import { siteConfig, buildBreadcrumbSchema } from "@/lib/seo"
 
 export interface ArticleSchemaProps {
   title: string
@@ -19,50 +6,19 @@ export interface ArticleSchemaProps {
   slug: string
   publishedAt: string
   updatedAt?: string
+  reviewedAt?: string | null
   category: string
-  /** Pass true to force MedicalWebPage regardless of category (e.g. article has medical disclaimer) */
   hasMedicalDisclaimer?: boolean
 }
 
-function buildArticleSchema(props: ArticleSchemaProps): Record<string, unknown> {
-  const { title, description, slug, publishedAt, updatedAt, category, hasMedicalDisclaimer } = props
+function buildMedicalWebPageSchema(props: ArticleSchemaProps): Record<string, unknown> {
+  const { title, description, slug, publishedAt, updatedAt, reviewedAt } = props
   const url = `${siteConfig.url}/blog/${slug}`
-  const useMedical = isMedicalCategory(category) || hasMedicalDisclaimer === true
 
-  if (useMedical) {
-    return {
-      "@context": "https://schema.org",
-      "@type": "MedicalWebPage",
-      headline: title,
-      description,
-      url,
-      datePublished: publishedAt,
-      dateModified: updatedAt || publishedAt,
-      lastReviewed: updatedAt || publishedAt,
-      reviewedBy: {
-        "@type": "Organization",
-        name: "Healthy Weight Literacy Foundation Editorial Team",
-        url: siteConfig.url,
-      },
-      medicalAudience: {
-        "@type": "MedicalAudience",
-        audienceType: "Patient",
-      },
-      publisher: {
-        "@type": "Organization",
-        name: siteConfig.name,
-        url: siteConfig.url,
-        logo: {
-          "@type": "ImageObject",
-          url: `${siteConfig.url}/logo.png`,
-        },
-      },
-    }
-  }
-
-  return {
+  const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "MedicalWebPage",
+    "@id": `${url}#article`,
     headline: title,
     description,
     url,
@@ -70,61 +26,29 @@ function buildArticleSchema(props: ArticleSchemaProps): Record<string, unknown> 
     dateModified: updatedAt || publishedAt,
     author: {
       "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
+      "@id": `${siteConfig.url}/#organization`,
     },
     publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteConfig.url}/logo.png`,
-      },
+      "@id": `${siteConfig.url}/#organization`,
     },
+    medicalAudience: {
+      "@type": "MedicalAudience",
+      audienceType: "Patient",
+    },
+    specialty: "Nutrition, Obesity Medicine, Public Health",
   }
+
+  const effectiveReviewDate = reviewedAt || updatedAt
+  if (effectiveReviewDate) {
+    schema.dateReviewed = effectiveReviewDate
+  }
+
+  return schema
 }
 
-function buildBreadcrumbSchema(props: Pick<ArticleSchemaProps, "title" | "slug">): Record<string, unknown> {
-  const { title, slug } = props
-  const articleUrl = `${siteConfig.url}/blog/${slug}`
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: siteConfig.url,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Education",
-        item: `${siteConfig.url}/education`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: title,
-        item: articleUrl,
-      },
-    ],
-  }
-}
-
-/**
- * ArticleSchema — renders Article (or MedicalWebPage) + BreadcrumbList JSON-LD
- * into the document <head> via Next.js script tags.
- *
- * Place this component inside the page that renders a blog article.
- * It is a Server Component — no client bundle overhead.
- */
 export function ArticleSchema(props: ArticleSchemaProps) {
-  const articleSchema = buildArticleSchema(props)
-  const breadcrumbSchema = buildBreadcrumbSchema(props)
+  const articleSchema = buildMedicalWebPageSchema(props)
+  const breadcrumbSchema = buildBreadcrumbSchema(`/blog/${props.slug}`, props.title)
 
   return (
     <>
@@ -132,10 +56,12 @@ export function ArticleSchema(props: ArticleSchemaProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      {breadcrumbSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+      )}
     </>
   )
 }

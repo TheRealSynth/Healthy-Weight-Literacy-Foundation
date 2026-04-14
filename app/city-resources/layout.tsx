@@ -1,10 +1,11 @@
+import type React from "react"
 import type { Metadata } from "next"
 import { generatePageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Ohio Community Resources",
   description:
-    "Find local health, nutrition, and community resources in Dayton, Columbus, Cincinnati, Cleveland, and cities across Ohio.",
+    "Find free health, nutrition, and community resources in Dayton, Columbus, Cincinnati, and Cleveland, Ohio — compiled by the Healthy Weight Literacy Foundation.",
   path: "/city-resources",
 })
 

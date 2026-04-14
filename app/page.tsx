@@ -56,6 +56,20 @@ export default async function HomePage() {
         </Container>
       </Section>
 
+      {/* Donation Prominence Strip */}
+      <div className="bg-[#E8F0FB] py-6 px-4">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
+          <p className="text-secondary font-medium text-base sm:text-lg">
+            Our resources are free because of supporters like you.
+          </p>
+          <Link href={ROUTES.DONATE} className="shrink-0">
+            <Button className="font-semibold">
+              Support Our Mission →
+            </Button>
+          </Link>
+        </div>
+      </div>
+
       {/* Mission Section */}
       <Section>
         <Container>
@@ -109,10 +123,10 @@ export default async function HomePage() {
               <Link key={item.title} href={item.href}>
                 <Card className="hover:shadow-card-hover transition-shadow h-full overflow-hidden">
                   <div className="relative h-48 w-full">
-                    <Image 
-                      src={item.image || "/placeholder.svg"} 
-                      alt={item.imageAlt} 
-                      fill 
+                    <Image
+                      src={item.image || "/placeholder.svg"}
+                      alt={item.imageAlt}
+                      fill
                       className="object-cover"
                       loading="eager"
                       priority
@@ -131,6 +145,28 @@ export default async function HomePage() {
           </div>
         </Container>
       </Section>
+
+      {/* Impact Stats Strip */}
+      <div className="bg-[#F0F4F8] py-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+            {[
+              { stat: "39+", label: "Articles Published" },
+              { stat: "Free", label: "Always Free to Access" },
+              { stat: "Ohio", label: "Community Resources Available" },
+            ].map(({ stat, label }) => (
+              <div key={label}>
+                <p className="text-4xl font-bold text-secondary" style={{ fontSize: "2.25rem" }}>
+                  {stat}
+                </p>
+                <p className="mt-1 text-muted-foreground" style={{ fontSize: "0.9rem", color: "#616161" }}>
+                  {label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Focus Areas */}
       <Section>

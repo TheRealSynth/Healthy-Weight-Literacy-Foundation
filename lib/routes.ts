@@ -12,6 +12,7 @@ export const ROUTES = {
   CITY_RESOURCES: "/city-resources",
   CONTACT: "/contact",
   DONATE: "/donate",
+  SUBSCRIBE: "/subscribe",
   SEARCH: "/search",
   
   // Content pages

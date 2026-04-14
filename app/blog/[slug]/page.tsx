@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Image from "next/image"
+import Link from "next/link"
 import { PageHeader } from "@/components/layout/page-header"
 import { Section } from "@/components/layout/section"
 import { Container } from "@/components/layout/container"
@@ -14,7 +15,6 @@ import { ArticleSchema } from "@/components/seo/article-schema"
 import { ArticleRenderer } from "@/components/content/article-renderer"
 import DOMPurify from "isomorphic-dompurify"
 import { Twitter, Facebook, Share2, Clock } from "lucide-react"
-import Link from "next/link"
 
 const HTML_PATTERN = /<\/?[a-z][^>]*>/i
 
@@ -28,6 +28,16 @@ const ALLOWED_TAGS = [
 ]
 const ALLOWED_ATTR = ["href", "src", "alt", "title", "class", "id", "target", "rel"]
 
+const CANONICAL_OVERRIDES: Record<string, string> = {
+  "reading-nutrition-labels-weight-health": "/blog/reading-nutrition-labels-what-to-look-for",
+  "hydration-weight-health-daily-functioning": "/blog/hydration-and-health-how-much-water-do-you-need",
+  "how-sleep-affects-weight-health-daily-functioning": "/blog/sleep-and-weight-understanding-the-connection",
+  "understanding-physical-activity-weight-health": "/blog/physical-activity-for-health-beyond-weight-loss",
+  "understanding-food-labels-added-sugars": "/blog/added-sugars-hidden-sources-and-health-effects",
+}
+
+const WWW_BASE = "https://www.weightliteracy.org"
+
 function prepareContent(raw: string): { content: string; isHtml: boolean } {
   const isHtml = HTML_PATTERN.test(raw)
   if (isHtml) {
@@ -37,6 +47,13 @@ function prepareContent(raw: string): { content: string; isHtml: boolean } {
     }
   }
   return { content: raw, isHtml: false }
+}
+
+function formatReviewDate(isoDate?: string | null): string | null {
+  if (!isoDate) return null
+  const d = new Date(isoDate)
+  if (isNaN(d.getTime())) return null
+  return d.toLocaleDateString("en-US", { month: "long", year: "numeric" })
 }
 
 interface BlogPostPageProps {
@@ -53,13 +70,37 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   const post = await getBlogPost(resolvedParams.slug)
   if (!post) return {}
 
-  return generatePageMetadata({
-    title: post.title,
-    description: post.description,
-    path: `/blog/${post.slug}`,
-    image: post.hero_image,
-  })
+  const canonicalPath =
+    post.canonical_url ||
+    CANONICAL_OVERRIDES[resolvedParams.slug] ||
+    `/blog/${resolvedParams.slug}`
+
+  const canonical = `${WWW_BASE}${canonicalPath}`
+
+  return {
+    ...generatePageMetadata({
+      title: post.title,
+      description: post.description,
+      path: `/blog/${resolvedParams.slug}`,
+      image: post.hero_image,
+    }),
+    alternates: { canonical },
+  }
 }
+
+const AuthorSVG = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 40 40"
+    fill="none"
+    className="rounded-full w-full h-full"
+    aria-hidden="true"
+  >
+    <rect width="40" height="40" rx="20" fill="#e5e7eb" />
+    <circle cx="20" cy="16" r="7" fill="#9ca3af" />
+    <path d="M4 36c0-8.837 7.163-16 16-16s16 7.163 16 16" fill="#9ca3af" />
+  </svg>
+)
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const resolvedParams = await params
@@ -73,6 +114,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const relatedPosts = allPosts.filter((p) => p.slug !== post.slug && p.category === post.category).slice(0, 2)
   const { content, isHtml } = prepareContent(post.content)
 
+  const authorSlug = post.author_slug || "hwlf-editorial-team"
+
+  const reviewDate = formatReviewDate(post.reviewed_at) || formatReviewDate(post.updated_at)
+
   return (
     <>
       <ArticleSchema
@@ -81,22 +126,43 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         slug={post.slug}
         publishedAt={post.published_at}
         updatedAt={post.updated_at ?? undefined}
+        reviewedAt={post.reviewed_at}
         category={post.category}
       />
 
       <PageHeader title={post.title} breadcrumbs={[{ label: "Blog", href: "/blog" }, { label: post.title }]}>
         <div className="flex flex-wrap items-center gap-4 mt-4">
           <div className="flex items-center gap-3">
-            <Image
-              src={post.author_image || "/placeholder.svg?height=40&width=40&query=author+portrait"}
-              alt={post.author}
-              width={40}
-              height={40}
-              className="rounded-full"
-            />
+            <Link
+              href={`/authors/${authorSlug}`}
+              className="h-10 w-10 rounded-full overflow-hidden shrink-0 block hover:opacity-80 transition-opacity"
+              aria-label={`View ${post.author} author profile`}
+            >
+              {post.author_image && !post.author_image.includes("unsplash") ? (
+                <Image
+                  src={post.author_image}
+                  alt={post.author}
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />
+              ) : (
+                <AuthorSVG />
+              )}
+            </Link>
             <div>
-              <p className="font-medium text-secondary">{post.author}</p>
+              <Link
+                href={`/authors/${authorSlug}`}
+                className="font-medium text-secondary hover:text-primary transition-colors block"
+              >
+                {post.author}
+              </Link>
               <p className="text-sm text-muted-foreground">{formatDate(post.published_at)}</p>
+              {reviewDate && (
+                <p style={{ fontSize: "0.8rem", color: "#757575", marginTop: "0.25rem" }}>
+                  Last reviewed: {reviewDate}
+                </p>
+              )}
             </div>
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -129,11 +195,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 loading="eager"
               />
 
-              {/* Article Content */}
               <ArticleRenderer content={content} isHtml={isHtml} />
 
+              {/* Article Footer */}
+              <div className="mt-8 pt-4 border-t">
+                <p className="text-sm text-muted-foreground">{post.author}</p>
+                <p className="text-sm text-muted-foreground">{formatDate(post.published_at)}</p>
+                {reviewDate && (
+                  <p style={{ fontSize: "0.8rem", color: "#757575", marginTop: "0.5rem" }}>
+                    Last reviewed: {reviewDate}
+                  </p>
+                )}
+              </div>
+
               {/* Share Section */}
-              <div className="mt-12 pt-8 border-t">
+              <div className="mt-8 pt-8 border-t">
                 <h3 className="text-lg font-semibold text-secondary mb-4">Share this article</h3>
                 <div className="flex gap-3">
                   <Button variant="outline" size="icon" aria-label="Share on Twitter">
@@ -182,20 +258,35 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Sidebar */}
             <aside className="space-y-8">
-              {/* Author Bio */}
               <Card>
                 <CardContent className="p-6">
                   <h3 className="font-bold text-secondary mb-4">About the Author</h3>
                   <div className="flex items-center gap-3 mb-3">
-                    <Image
-                      src={post.author_image || "/placeholder.svg?height=60&width=60&query=author+portrait"}
-                      alt={post.author}
-                      width={60}
-                      height={60}
-                      className="rounded-full"
-                    />
+                    <Link
+                      href={`/authors/${authorSlug}`}
+                      className="h-12 w-12 rounded-full overflow-hidden shrink-0 block hover:opacity-80 transition-opacity"
+                    >
+                      {post.author_image && !post.author_image.includes("unsplash") ? (
+                        <Image
+                          src={post.author_image}
+                          alt={post.author}
+                          width={60}
+                          height={60}
+                          className="rounded-full"
+                        />
+                      ) : (
+                        <div className="h-12 w-12">
+                          <AuthorSVG />
+                        </div>
+                      )}
+                    </Link>
                     <div>
-                      <p className="font-medium text-secondary">{post.author}</p>
+                      <Link
+                        href={`/authors/${authorSlug}`}
+                        className="font-medium text-secondary hover:text-primary transition-colors block"
+                      >
+                        {post.author}
+                      </Link>
                       <p className="text-sm text-muted-foreground">Health Writer</p>
                     </div>
                   </div>
@@ -205,7 +296,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </CardContent>
               </Card>
 
-              {/* Newsletter CTA */}
               <Card className="bg-gradient-to-br from-primary/10 to-primary/5">
                 <CardContent className="p-6">
                   <h3 className="font-bold text-secondary mb-2">Stay Informed</h3>
@@ -213,12 +303,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     Get the latest health insights delivered to your inbox.
                   </p>
                   <Button className="w-full" asChild>
-                    <Link href="/#newsletter">Subscribe</Link>
+                    <Link href="/subscribe">Subscribe</Link>
                   </Button>
                 </CardContent>
               </Card>
 
-              {/* Popular Tags */}
               <Card>
                 <CardContent className="p-6">
                   <h3 className="font-bold text-secondary mb-4">Popular Tags</h3>

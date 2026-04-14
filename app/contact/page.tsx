@@ -6,10 +6,12 @@ import { PageHeader } from "@/components/layout/page-header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ContactForm } from "@/components/forms/contact-form"
 import { generatePageMetadata, siteConfig } from "@/lib/seo"
+import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema"
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Contact Us",
-  description: "Get in touch with the Healthy Weight Literacy Foundation. We're here to help.",
+  description:
+    "Contact the Healthy Weight Literacy Foundation. Questions about our educational content, programs, or how to support our mission.",
   path: "/contact",
 })
 
@@ -31,6 +33,7 @@ const contactInfo = [
 export default function ContactPage() {
   return (
     <>
+      <BreadcrumbSchema pathname="/contact" />
       <PageHeader
         title="Contact Us"
         description="Have questions? We'd love to hear from you."

@@ -1,6 +1,4 @@
-"use client"
-
-import { useState } from "react"
+import type React from "react"
 import Link from "next/link"
 import {
   MapPin,
@@ -18,8 +16,10 @@ import { PageHeader } from "@/components/layout/page-header"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { CityTabs } from "@/components/blocks/city-tabs"
+import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema"
 
-const categoryIcons: Record<string, typeof MapPin> = {
+const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   "Food Assistance": UtensilsCrossed,
   "Health Clinics": Stethoscope,
   "Community Centers": Building2,
@@ -196,119 +196,93 @@ const cityData = [
   },
 ]
 
-const categories = ["All", "Food Assistance", "Health Clinics", "Community Centers", "Nutrition Programs"]
-
 export default function CityResourcesPage() {
-  const [selectedCity, setSelectedCity] = useState("Dayton")
-  const [selectedCategory, setSelectedCategory] = useState("All")
-
-  const currentCity = cityData.find((c) => c.name === selectedCity) || cityData[0]
-  const filteredResources =
-    selectedCategory === "All"
-      ? currentCity.resources
-      : currentCity.resources.filter((r) => r.category === selectedCategory)
-
   return (
     <>
+      <BreadcrumbSchema pathname="/city-resources" />
+
       <PageHeader
         title="Ohio Community Resources"
         description="Find local health, nutrition, and community resources in cities across Ohio. Our foundation connects individuals and families with trusted organizations in their area."
         breadcrumbs={[{ label: "City Resources" }]}
       />
 
-      {/* City Selector */}
       <Section>
         <Container>
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl mb-2">Select Your City</h2>
             <p className="text-muted-foreground">Choose a city to view available community resources</p>
           </div>
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {cityData.map((city) => (
-              <Button
-                key={city.name}
-                variant={selectedCity === city.name ? "default" : "outline"}
-                onClick={() => {
-                  setSelectedCity(city.name)
-                  setSelectedCategory("All")
-                }}
-                className="min-w-[120px]"
-              >
-                <MapPin className="mr-2 h-4 w-4" />
-                {city.name}
-              </Button>
-            ))}
-          </div>
 
-          {/* City header */}
-          <div className="text-center mb-8">
-            <h3 className="text-xl font-semibold text-secondary">{currentCity.name}</h3>
-            <p className="text-sm text-muted-foreground">{currentCity.region}</p>
-          </div>
+          {/* Client tabs — controls visibility only; all data is in the HTML below */}
+          <CityTabs defaultCity="Dayton" />
 
-          {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {categories.map((cat) => (
-              <Badge
-                key={cat}
-                variant={selectedCategory === cat ? "default" : "outline"}
-                className="cursor-pointer text-sm px-4 py-1.5 transition-colors hover:bg-primary/10"
-                onClick={() => setSelectedCategory(cat)}
-              >
-                {cat}
-              </Badge>
-            ))}
-          </div>
+          {/* All city sections rendered in HTML for SEO */}
+          {cityData.map((city, cityIndex) => (
+            <div
+              key={city.name}
+              data-city-section={city.name}
+              style={{ display: cityIndex === 0 ? undefined : "none" }}
+            >
+              <div className="text-center mb-8">
+                <h3 className="text-xl font-semibold text-secondary">{city.name}</h3>
+                <p className="text-sm text-muted-foreground">{city.region}</p>
+              </div>
 
-          {/* Resource Cards */}
-          <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
-            {filteredResources.map((resource) => {
-              const Icon = categoryIcons[resource.category] || MapPin
-              return (
-                <Card key={resource.name} className="hover:shadow-md transition-shadow">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start gap-3">
-                      <div className="h-10 w-10 rounded-lg bg-primary-soft flex items-center justify-center shrink-0">
-                        <Icon className="h-5 w-5 text-primary" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <CardTitle className="text-lg leading-tight">{resource.name}</CardTitle>
-                        <Badge variant="secondary" className="mt-1 text-xs">
-                          {resource.category}
-                        </Badge>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">{resource.description}</p>
-                    <div className="flex flex-col gap-2 text-sm">
-                      <div className="flex items-start gap-2 text-muted-foreground">
-                        <MapPin className="h-4 w-4 shrink-0 mt-0.5" />
-                        <span>{resource.address}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Phone className="h-4 w-4 shrink-0" />
-                        <a href={`tel:${resource.phone}`} className="hover:text-primary transition-colors">
-                          {resource.phone}
-                        </a>
-                      </div>
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Globe className="h-4 w-4 shrink-0" />
-                        <a
-                          href={resource.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:text-primary transition-colors truncate"
-                        >
-                          Visit Website
-                        </a>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
+              <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
+                {city.resources.map((resource) => {
+                  const Icon = categoryIcons[resource.category] || MapPin
+                  return (
+                    <Card
+                      key={resource.name}
+                      data-resource-category={resource.category}
+                      className="hover:shadow-md transition-shadow"
+                    >
+                      <CardHeader className="pb-3">
+                        <div className="flex items-start gap-3">
+                          <div className="h-10 w-10 rounded-lg bg-primary-soft flex items-center justify-center shrink-0">
+                            <Icon className="h-5 w-5 text-primary" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <CardTitle className="text-lg leading-tight">{resource.name}</CardTitle>
+                            <Badge variant="secondary" className="mt-1 text-xs">
+                              {resource.category}
+                            </Badge>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground text-sm leading-relaxed mb-4">{resource.description}</p>
+                        <div className="flex flex-col gap-2 text-sm">
+                          <div className="flex items-start gap-2 text-muted-foreground">
+                            <MapPin className="h-4 w-4 shrink-0 mt-0.5" />
+                            <span>{resource.address}</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-muted-foreground">
+                            <Phone className="h-4 w-4 shrink-0" />
+                            <a href={`tel:${resource.phone}`} className="hover:text-primary transition-colors">
+                              {resource.phone}
+                            </a>
+                          </div>
+                          <div className="flex items-center gap-2 text-muted-foreground">
+                            <Globe className="h-4 w-4 shrink-0" />
+                            <a
+                              href={resource.website}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:text-primary transition-colors truncate"
+                            >
+                              Visit Website
+                            </a>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )
+                })}
+              </div>
+            </div>
+          ))}
         </Container>
       </Section>
 
@@ -333,13 +307,11 @@ export default function CityResourcesPage() {
         </Container>
       </Section>
 
-      {/* Submit a Resource */}
       <Section>
         <Container size="sm" className="text-center">
           <h2 className="text-2xl font-bold text-secondary mb-4">Know a Resource We Should List?</h2>
           <p className="text-muted-foreground mb-6 leading-relaxed">
-            Help us expand our directory by submitting community health resources in your area. We are always looking
-            to connect people with trusted local organizations.
+            Help us expand our directory by submitting community health resources in your area.
           </p>
           <Link href="/contact">
             <Button>Submit a Resource</Button>

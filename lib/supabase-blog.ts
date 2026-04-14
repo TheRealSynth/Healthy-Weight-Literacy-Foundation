@@ -33,14 +33,17 @@ export interface BlogPost {
   title: string
   description: string
   author: string
+  author_slug?: string
   author_image: string
   published_at: string
   updated_at: string
+  reviewed_at?: string | null
   hero_image: string
   tags: string[]
   category: string
   reading_time: string
   content: string
+  canonical_url?: string | null
   is_published: boolean
   created_at: string
 }

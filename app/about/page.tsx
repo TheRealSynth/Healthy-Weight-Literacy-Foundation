@@ -5,11 +5,12 @@ import { Container } from "@/components/layout/container"
 import { Card, CardContent } from "@/components/ui/card"
 import { generatePageMetadata } from "@/lib/seo"
 import { BookOpen, Users, Target, Shield } from "lucide-react"
+import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema"
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "About Weight Literacy Foundation | Mission and Public Education",
+  title: "About Us",
   description:
-    "Learn about Weight Literacy Foundation, our mission, and our commitment to improving public understanding of weight health and evidence-based education.",
+    "Learn about the Healthy Weight Literacy Foundation — a 501(c)(3) nonprofit providing free, evidence-based education on nutrition, weight management, and metabolic health.",
   path: "/about",
 })
 
@@ -43,6 +44,7 @@ const whatWeDo = [
 export default function AboutPage() {
   return (
     <>
+      <BreadcrumbSchema pathname="/about" />
       {/* Hero */}
       <div className="relative bg-primary text-primary-foreground overflow-hidden">
         <div className="absolute inset-0 z-0">

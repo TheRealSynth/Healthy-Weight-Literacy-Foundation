@@ -18,14 +18,16 @@ if (process.env.NODE_ENV === "development") {
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://weightliteracy.org"),
+  metadataBase: new URL("https://www.weightliteracy.org"),
   title: {
     default: "Healthy Weight Literacy Foundation | Evidence-Based Health Education",
     template: "%s | Healthy Weight Literacy Foundation",
   },
   description:
-    "Improving public health through clear, evidence-based education on nutrition, weight management, and metabolic health. Empowering individuals and communities to make informed, sustainable lifestyle decisions.",
+    "Free, evidence-based education on nutrition, weight management, and metabolic health from the Healthy Weight Literacy Foundation — a 501(c)(3) nonprofit.",
   keywords: [
     "health literacy",
     "nutrition education",
@@ -44,14 +46,17 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
+  alternates: {
+    canonical: "https://www.weightliteracy.org",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://weightliteracy.org",
+    url: "https://www.weightliteracy.org",
     siteName: "Healthy Weight Literacy Foundation",
     title: "Healthy Weight Literacy Foundation | Evidence-Based Health Education",
     description:
-      "Improving public health through clear, evidence-based education on nutrition, weight management, and metabolic health.",
+      "Free, evidence-based education on nutrition, weight management, and metabolic health from the Healthy Weight Literacy Foundation — a 501(c)(3) nonprofit.",
     images: [
       {
         url: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&h=630&fit=crop",
@@ -65,7 +70,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Healthy Weight Literacy Foundation",
     description:
-      "Improving public health through clear, evidence-based education on nutrition, weight management, and metabolic health.",
+      "Free, evidence-based education on nutrition, weight management, and metabolic health from the Healthy Weight Literacy Foundation — a 501(c)(3) nonprofit.",
     images: ["https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&h=630&fit=crop"],
     creator: "@hwlfoundation",
   },
@@ -88,7 +93,6 @@ export const metadata: Metadata = {
   verification: {
     google: "leBIqjXCkqYmnfmaruVk0B9tuMCsE6Pj2rZT16_9rWA",
   },
-  generator: "v0.app",
 }
 
 export const viewport: Viewport = {
@@ -106,9 +110,33 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
+        {GTM_ID && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`,
+            }}
+          />
+        )}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
       </head>
       <body className="font-sans antialiased min-h-screen flex flex-col">
+        {GTM_ID && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+            />
+          </noscript>
+        )}
         <a href="#main-content" className="skip-to-content">
           Skip to main content
         </a>
@@ -121,7 +149,6 @@ export default function RootLayout({
         <Analytics />
         <GA4Provider />
         <CookieConsent />
-
       </body>
     </html>
   )

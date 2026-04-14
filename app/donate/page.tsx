@@ -7,11 +7,12 @@ import { PageHeader } from "@/components/layout/page-header"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { generatePageMetadata, siteConfig } from "@/lib/seo"
+import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema"
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Donate - Support Evidence-Based Health Education",
+  title: "Donate",
   description:
-    "Your tax-deductible donation to HWLF supports free, evidence-based health literacy resources for communities in need.",
+    "Support free, evidence-based health education for Ohio communities. Donate to the Healthy Weight Literacy Foundation, a registered 501(c)(3) nonprofit. EIN: 41-2983678.",
   path: "/donate",
 })
 
@@ -38,6 +39,7 @@ const impactAreas = [
 export default function DonatePage() {
   return (
     <>
+      <BreadcrumbSchema pathname="/donate" />
       <PageHeader
         title="Support Evidence-Based Health Education"
         description="Your generosity helps us provide free, accessible health literacy resources to communities that need them most."

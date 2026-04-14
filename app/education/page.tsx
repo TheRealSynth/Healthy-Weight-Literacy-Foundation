@@ -9,11 +9,12 @@ import { BookOpen, Heart, Activity, Brain, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { getBlogPosts } from "@/lib/supabase-blog"
 import { ROUTES, dynamicRoutes } from "@/lib/routes"
+import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema"
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Education",
   description:
-    "Access evidence-based educational resources on nutrition, weight management, and metabolic health from Healthy Weight Literacy Foundation.",
+    "Explore evidence-based educational resources on nutrition, weight management, metabolic health, GLP-1 medications, and telehealth — free from the Healthy Weight Literacy Foundation.",
   path: "/education",
 })
 
@@ -50,6 +51,7 @@ export default async function EducationPage() {
 
   return (
     <>
+      <BreadcrumbSchema pathname="/education" />
       <PageHeader
         title="Educational Resources"
         description="Evidence-based education to support informed health decisions"
