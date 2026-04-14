@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import * as RechartsPrimitive from 'recharts'
-import type { LegendProps, TooltipContentProps } from 'recharts'
+import type { TooltipContentProps } from 'recharts'
 import type {
   NameType,
   ValueType,
@@ -10,11 +10,10 @@ import type {
 
 import { cn } from '@/lib/utils'
 
-// Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: '', dark: '.dark' } as const
 
 export type ChartConfig = {
-  [k in string]: {
+  [k: string]: {
     label?: React.ReactNode
     icon?: React.ComponentType
   } & (
@@ -76,7 +75,7 @@ function ChartContainer({
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(
-    ([, config]) => config.theme || config.color,
+    ([, itemConfig]) => itemConfig.theme || itemConfig.color,
   )
 
   if (!colorConfig.length) {
@@ -194,7 +193,7 @@ function ChartTooltipContent({
             (typeof item.payload === 'object' &&
             item.payload !== null &&
             'fill' in item.payload
-              ? String(item.payload.fill)
+              ? String((item.payload as { fill?: unknown }).fill)
               : undefined) ||
             item.color
 
@@ -273,11 +272,11 @@ function ChartLegendContent({
   verticalAlign = 'bottom',
   nameKey,
 }: React.ComponentProps<'div'> & {
-  payload?: any
+  payload?: any[]
   verticalAlign?: 'top' | 'bottom' | 'middle'
-    hideIcon?: boolean
-    nameKey?: string
-  }) {
+  hideIcon?: boolean
+  nameKey?: string
+}) {
   const { config } = useChart()
 
   if (!payload?.length) {
@@ -292,7 +291,7 @@ function ChartLegendContent({
         className,
       )}
     >
-      {payload.map((item, index) => {
+      {payload.map((item: any, index: number) => {
         const key = `${nameKey || item.dataKey || 'value'}`
         const itemConfig = getPayloadConfigFromPayload(config, item, key)
 
@@ -319,7 +318,6 @@ function ChartLegendContent({
   )
 }
 
-// Helper to extract item config from a payload.
 function getPayloadConfigFromPayload(
   config: ChartConfig,
   payload: unknown,
@@ -336,7 +334,7 @@ function getPayloadConfigFromPayload(
       ? payload.payload
       : undefined
 
-  let configLabelKey: string = key
+  let configLabelKey = key
 
   if (
     key in payload &&
