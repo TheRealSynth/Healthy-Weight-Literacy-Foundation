@@ -7,7 +7,6 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
   let inlineKey = 0
 
   while (remaining.length > 0) {
-    // Find the earliest inline match
     let earliest: { type: string; index: number; length: number } | null = null
 
     // Bold: **text**
@@ -15,9 +14,7 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
     if (boldIdx !== -1) {
       const end = remaining.indexOf("**", boldIdx + 2)
       if (end !== -1) {
-        if (!earliest || boldIdx < earliest.index) {
-          earliest = { type: "bold", index: boldIdx, length: end + 2 }
-        }
+        earliest = { type: "bold", index: boldIdx, length: end + 2 }
       }
     }
 
@@ -26,7 +23,11 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
     const linkMatch = remaining.match(linkRegex)
     if (linkMatch && linkMatch.index !== undefined) {
       if (!earliest || linkMatch.index < earliest.index) {
-        earliest = { type: "link", index: linkMatch.index, length: linkMatch.index + linkMatch[0].length }
+        earliest = {
+          type: "link",
+          index: linkMatch.index,
+          length: linkMatch.index + linkMatch[0].length,
+        }
       }
     }
 
@@ -36,7 +37,11 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
       const italicMatch = remaining.match(italicRegex)
       if (italicMatch && italicMatch.index !== undefined) {
         if (!earliest || italicMatch.index < earliest.index) {
-          earliest = { type: "italic", index: italicMatch.index, length: italicMatch.index + italicMatch[0].length }
+          earliest = {
+            type: "italic",
+            index: italicMatch.index,
+            length: italicMatch.index + italicMatch[0].length,
+          }
         }
       }
     }
@@ -46,7 +51,6 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
       break
     }
 
-    // Push text before the match
     if (earliest.index > 0) {
       result.push(remaining.slice(0, earliest.index))
     }
@@ -75,7 +79,9 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
             key={`i-${inlineKey++}`}
             href={m[2]}
             className="text-primary underline hover:text-primary/80"
-            {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            {...(isExternal
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
           >
             {m[1]}
           </a>,
@@ -125,14 +131,12 @@ export function renderMarkdownContent(content: string) {
       return
     }
 
-    // Horizontal rules: --- or *** or ___
     if (/^(-{3,}|\*{3,}|_{3,})$/.test(trimmed)) {
       flushLists()
       elements.push(<hr key={key++} className="my-8 border-border" />)
       return
     }
 
-    // Images: ![alt](src)
     const imageMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)/)
     if (imageMatch) {
       flushLists()
@@ -151,7 +155,6 @@ export function renderMarkdownContent(content: string) {
       return
     }
 
-    // Headings (check ### before ## before #)
     if (trimmed.startsWith("### ")) {
       flushLists()
       const text = trimmed.slice(4)
@@ -166,6 +169,7 @@ export function renderMarkdownContent(content: string) {
       )
       return
     }
+
     if (trimmed.startsWith("## ")) {
       flushLists()
       const text = trimmed.slice(3)
@@ -180,6 +184,7 @@ export function renderMarkdownContent(content: string) {
       )
       return
     }
+
     if (trimmed.startsWith("# ")) {
       flushLists()
       const text = trimmed.slice(2)
@@ -195,7 +200,6 @@ export function renderMarkdownContent(content: string) {
       return
     }
 
-    // Unordered list items: - text or * text
     if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
       if (olItems.length > 0) {
         elements.push(
@@ -209,7 +213,6 @@ export function renderMarkdownContent(content: string) {
       return
     }
 
-    // Ordered list items: 1. text
     const olMatch = trimmed.match(/^(\d+)\.\s+(.*)/)
     if (olMatch) {
       if (ulItems.length > 0) {
@@ -224,30 +227,37 @@ export function renderMarkdownContent(content: string) {
       return
     }
 
-    // Blockquote: > text
     if (trimmed.startsWith("> ")) {
       flushLists()
       elements.push(
-        <blockquote key={key++} className="border-l-4 border-primary/30 pl-4 italic text-muted-foreground my-4">
+        <blockquote
+          key={key++}
+          className="border-l-4 border-primary/30 pl-4 italic text-muted-foreground my-4"
+        >
           {renderInlineMarkdown(trimmed.slice(2))}
         </blockquote>,
       )
       return
     }
 
-    // Table rows: | text |
     if (trimmed.startsWith("|")) {
       flushLists()
-      // Skip separator rows like |---|---|
       if (/^\|[\s-:|]+\|$/.test(trimmed)) return
       const cells = trimmed
         .split("|")
         .filter((c) => c.trim())
         .map((c) => c.trim())
+
       elements.push(
-        <div key={key++} className="flex gap-4 py-2 border-b border-border text-sm">
+        <div
+          key={key++}
+          className="flex gap-4 py-2 border-b border-border text-sm"
+        >
           {cells.map((cell, i) => (
-            <span key={i} className={i === 0 ? "font-medium min-w-[120px]" : "flex-1"}>
+            <span
+              key={i}
+              className={i === 0 ? "font-medium min-w-[120px]" : "flex-1"}
+            >
               {renderInlineMarkdown(cell)}
             </span>
           ))}
@@ -256,10 +266,7 @@ export function renderMarkdownContent(content: string) {
       return
     }
 
-    // Flush any pending lists before a paragraph
     flushLists()
-
-    // Regular paragraph with inline formatting
     elements.push(<p key={key++}>{renderInlineMarkdown(trimmed)}</p>)
   })
 
